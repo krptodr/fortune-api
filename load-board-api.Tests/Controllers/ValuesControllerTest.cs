@@ -8,20 +8,28 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using load_board_api;
 using load_board_api.Controllers;
 using load_board_api.Models;
+using load_board_api.Persistence;
 
 namespace load_board_api.Tests.Controllers
 {
     [TestClass]
     public class ValuesControllerTest
     {
+        private ValuesController valuesController;
+
+        public ValuesControllerTest()
+        {
+            LoadBoardDbContext context = new LoadBoardDbContext();
+            IRepo<Value> valueRepo = new Repo<Value>(context);
+            IUnitOfWork unitOfWork = new UnitOfWork(context, valueRepo);
+            this.valuesController = new ValuesController(unitOfWork);
+        }
+
         [TestMethod]
         public void Get()
         {
-            // Arrange
-            ValuesController controller = new ValuesController();
-
             // Act
-            IEnumerable<Value> result = controller.Get();
+            IEnumerable<Value> result = this.valuesController.Get();
 
             // Assert
             Assert.IsNotNull(result);
@@ -29,52 +37,37 @@ namespace load_board_api.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetById()
+        public void GetNonexistentById()
         {
-            // Arrange
-            ValuesController controller = new ValuesController();
-
             // Act
-            string result = controller.Get(5);
+            Value result = this.valuesController.Get(Guid.Empty);
 
             // Assert
-            Assert.AreEqual("value", result);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
         public void Post()
         {
-            // Arrange
-            ValuesController controller = new ValuesController();
-
             // Act
-            controller.Post("value");
-
-            // Assert
+            this.valuesController.Post(new Value { Name = "TEST" });
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
         public void Put()
         {
-            // Arrange
-            ValuesController controller = new ValuesController();
-
             // Act
-            controller.Put(5, "value");
-
-            // Assert
+            this.valuesController.Put(Guid.Empty, new Value { Name = "TEST" });
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void Delete()
         {
-            // Arrange
-            ValuesController controller = new ValuesController();
-
             // Act
-            controller.Delete(5);
-
-            // Assert
+            this.valuesController.Delete(Guid.Empty);
         }
     }
 }
