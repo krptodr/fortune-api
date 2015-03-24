@@ -12,7 +12,6 @@ namespace load_board_api
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
         }
     }
 }
