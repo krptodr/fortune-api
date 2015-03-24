@@ -7,7 +7,6 @@ using System.Web.Http;
 
 namespace load_board_api.Controllers
 {
-    [Authorize]
     public class ValuesController : ApiController
     {
         // GET api/values
