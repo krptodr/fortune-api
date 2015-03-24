@@ -11,32 +11,47 @@ namespace load_board_api.Controllers
 {
     public class ValuesController : ApiController
     {
+        private LoadBoardDbContext context;
+
+        public ValuesController(LoadBoardDbContext context)
+        {
+            this.context = context;
+        }
+
         // GET api/values
         public List<Value> Get()
         {
-            LoadBoardDbContext context = new LoadBoardDbContext();
-            return context.Values.ToList<Value>();
+            return this.context.Values.ToList<Value>();
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        // GET api/values/{id}
+        public Value Get(Guid id)
         {
-            return "value";
+            return this.context.Values.Find(id);
         }
 
         // POST api/values
-        public void Post([FromBody]string value)
+        public void Post([FromBody] Value value)
         {
+            value.Id = Guid.NewGuid();
+            this.context.Values.Add(value);
+            this.context.SaveChanges();
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        // PUT api/values/{id}
+        public void Put(int id, [FromBody] Value value)
         {
+            Value dbValue = this.context.Values.Find(id);
+            dbValue.Name = value.Name;
+            this.context.SaveChanges();
         }
 
-        // DELETE api/values/5
-        public void Delete(int id)
+        // DELETE api/values/{id}
+        public void Delete(Guid id)
         {
+            Value value = this.context.Values.Find(id);
+            this.context.Values.Remove(value);
+            this.context.SaveChanges();
         }
     }
 }
