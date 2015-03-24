@@ -1,4 +1,5 @@
-﻿using load_board_api.Persistence;
+﻿using load_board_api.Models;
+using load_board_api.Persistence;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace load_board_api.App_Start
 
             //Register Types
             container.RegisterType<LoadBoardDbContext>(new PerResolveLifetimeManager());
+            container.RegisterType<IUnitOfWork, UnitOfWork>(new PerResolveLifetimeManager());
+            container.RegisterType<IRepo<Value>, Repo<Value>>(new PerResolveLifetimeManager());
 
             return container;
         }
