@@ -9,6 +9,7 @@ using load_board_api;
 using load_board_api.Controllers;
 using load_board_api.Models;
 using load_board_api.Persistence;
+using load_board_api.Tests.Test_Start;
 
 namespace load_board_api.Tests.Controllers
 {
@@ -19,10 +20,7 @@ namespace load_board_api.Tests.Controllers
 
         public ValuesControllerTest()
         {
-            LoadBoardDbContext context = new LoadBoardDbContext();
-            IRepo<Value> valueRepo = new Repo<Value>(context);
-            IUnitOfWork unitOfWork = new UnitOfWork(context, valueRepo);
-            this.valuesController = new ValuesController(unitOfWork);
+            this.valuesController = new ValuesController(TestUtil.UNIT_OF_WORK);
         }
 
         [TestMethod]
@@ -37,6 +35,17 @@ namespace load_board_api.Tests.Controllers
         }
 
         [TestMethod]
+        public void GetById()
+        {
+            // Act
+            Value result = this.valuesController.Get(TestUtil.VALUES.ElementAt(0).Id);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(TestUtil.VALUES.ElementAt(0).Name, result.Name);
+        }
+
+        [TestMethod]
         public void GetNonexistentById()
         {
             // Act
@@ -47,7 +56,6 @@ namespace load_board_api.Tests.Controllers
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
         public void Post()
         {
             // Act
@@ -63,7 +71,6 @@ namespace load_board_api.Tests.Controllers
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Delete()
         {
             // Act

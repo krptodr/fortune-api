@@ -19,6 +19,7 @@ namespace load_board_api.Persistence
         )
         {
             this.disposed = false;
+            this.context = context;
             this.ValueRepo = valueRepo;
         }
 
