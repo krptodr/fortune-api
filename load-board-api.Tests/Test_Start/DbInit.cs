@@ -4,8 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using load_board_api.Models;
+using load_board_api.Persistence;
 
-namespace load_board_api.Persistence
+namespace load_board_api.Tests.Test_Start
 {
     public class DbInit : DropCreateDatabaseAlways<LoadBoardDbContext>
     {

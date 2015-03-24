@@ -4,15 +4,18 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using load_board_api.Persistence;
+using load_board_api.Models;
 
 namespace load_board_api.Controllers
 {
     public class ValuesController : ApiController
     {
         // GET api/values
-        public IEnumerable<string> Get()
+        public List<Value> Get()
         {
-            return new string[] { "value1", "value2" };
+            LoadBoardDbContext context = new LoadBoardDbContext();
+            return context.Values.ToList<Value>();
         }
 
         // GET api/values/5

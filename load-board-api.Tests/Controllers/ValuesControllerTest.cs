@@ -7,6 +7,7 @@ using System.Web.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using load_board_api;
 using load_board_api.Controllers;
+using load_board_api.Models;
 
 namespace load_board_api.Tests.Controllers
 {
@@ -20,13 +21,11 @@ namespace load_board_api.Tests.Controllers
             ValuesController controller = new ValuesController();
 
             // Act
-            IEnumerable<string> result = controller.Get();
+            IEnumerable<Value> result = controller.Get();
 
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(2, result.Count());
-            Assert.AreEqual("value1", result.ElementAt(0));
-            Assert.AreEqual("value2", result.ElementAt(1));
         }
 
         [TestMethod]
