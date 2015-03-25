@@ -7,6 +7,7 @@ using System.Web.Http;
 using load_board_api.Persistence;
 using load_board_api.Models;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace load_board_api.Controllers
 {
@@ -18,6 +19,22 @@ namespace load_board_api.Controllers
         public TestObjectController(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
+        }
+
+        // GET api/testobjects/hidden
+        [HttpGet]
+        [Route("hidden")]
+        public string GetHidden()
+        {
+            try
+            {
+                return ConfigurationManager.AppSettings["TEST"];
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.Message);
+                throw;
+            }
         }
 
         // GET api/testobjects

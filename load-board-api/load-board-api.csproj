@@ -128,6 +128,12 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\HiddenSettings.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\HiddenSettings.Template.Config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -159,7 +165,12 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
   </Target> -->
+  <Target Name="AfterBuild">
+	<Copy SourceFiles="config/HiddenSettings.Template.config"
+		  DestinationFiles="config/HiddenSettings.config"
+		  SkipUnchangedFiles="true"
+		  Condition="!Exists('config/HiddenSettings.config')">
+	</Copy>
+  </Target>
 </Project>
