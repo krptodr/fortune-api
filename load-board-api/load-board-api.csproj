@@ -97,7 +97,7 @@
     <Compile Include="Models\TestObject.cs" />
     <Compile Include="Persistence\DbInit.cs" />
     <Compile Include="Controllers\TestObjectController.cs" />
-    <Compile Include="Persistence\Global.asax.cs">
+    <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Persistence\IRepo.cs" />
@@ -108,7 +108,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Persistence\Global.asax" />
+    <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
