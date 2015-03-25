@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using load_board_api.Persistence;
 using load_board_api.Models;
+using System.Diagnostics;
 
 namespace load_board_api.Controllers
 {
@@ -19,38 +20,46 @@ namespace load_board_api.Controllers
         }
 
         // GET api/values
-        public List<Value> Get()
+        public List<TestObject> Get()
         {
-            return unitOfWork.ValueRepo.Get(filter: x => true).ToList<Value>();
+            try
+            {
+                return unitOfWork.TestObjectRepo.Get(filter: x => true).ToList<TestObject>();
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.Message);
+                throw;
+            }
         }
 
         // GET api/values/{id}
-        public Value Get(Guid id)
+        public TestObject Get(Guid id)
         {
-            return unitOfWork.ValueRepo.Get(id);
+            return unitOfWork.TestObjectRepo.Get(id);
         }
 
         // POST api/values
-        public void Post([FromBody] Value value)
+        public void Post([FromBody] TestObject value)
         {
             value.Id = Guid.NewGuid();
-            this.unitOfWork.ValueRepo.Insert(value);
+            this.unitOfWork.TestObjectRepo.Insert(value);
             this.unitOfWork.Save();
         }
 
         // PUT api/values/{id}
-        public void Put(Guid id, [FromBody] Value value)
+        public void Put(Guid id, [FromBody] TestObject value)
         {
-            Value dbValue = this.unitOfWork.ValueRepo.Get(id);
+            TestObject dbValue = this.unitOfWork.TestObjectRepo.Get(id);
             dbValue.Name = value.Name;
-            this.unitOfWork.ValueRepo.Update(value);
+            this.unitOfWork.TestObjectRepo.Update(value);
             this.unitOfWork.Save();
         }
 
         // DELETE api/values/{id}
         public void Delete(Guid id)
         {
-            this.unitOfWork.ValueRepo.Delete(id);
+            this.unitOfWork.TestObjectRepo.Delete(id);
             this.unitOfWork.Save();
         }
     }

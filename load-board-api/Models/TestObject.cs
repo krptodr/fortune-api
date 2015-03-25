@@ -7,7 +7,7 @@ using System.Web;
 
 namespace load_board_api.Models
 {
-    public class Value
+    public class TestObject
     {
         [Key]
         public Guid Id { get; set; }

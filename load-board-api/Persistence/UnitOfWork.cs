@@ -11,16 +11,16 @@ namespace load_board_api.Persistence
         private LoadBoardDbContext context;
         private bool disposed;
 
-        public IRepo<Value> ValueRepo { get; set; }
+        public IRepo<TestObject> TestObjectRepo { get; set; }
 
         public UnitOfWork(
             LoadBoardDbContext context,
-            IRepo<Value> valueRepo
+            IRepo<TestObject> testObjectRepo
         )
         {
             this.disposed = false;
             this.context = context;
-            this.ValueRepo = valueRepo;
+            this.TestObjectRepo = testObjectRepo;
         }
 
         public void Save()

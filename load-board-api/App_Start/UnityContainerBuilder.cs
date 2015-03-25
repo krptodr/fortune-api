@@ -17,7 +17,7 @@ namespace load_board_api.App_Start
             //Register Types
             container.RegisterType<LoadBoardDbContext>(new PerResolveLifetimeManager());
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerResolveLifetimeManager());
-            container.RegisterType<IRepo<Value>, Repo<Value>>(new PerResolveLifetimeManager());
+            container.RegisterType<IRepo<TestObject>, Repo<TestObject>>(new PerResolveLifetimeManager());
 
             return container;
         }

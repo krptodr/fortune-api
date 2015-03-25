@@ -9,7 +9,7 @@ namespace load_board_api.Persistence
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepo<Value> ValueRepo { get; set; }
+        IRepo<TestObject> TestObjectRepo { get; set; }
 
         void Save();
     }

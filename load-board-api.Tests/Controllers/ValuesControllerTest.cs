@@ -27,7 +27,7 @@ namespace load_board_api.Tests.Controllers
         public void Get()
         {
             // Act
-            IEnumerable<Value> result = this.valuesController.Get();
+            IEnumerable<TestObject> result = this.valuesController.Get();
 
             // Assert
             Assert.IsNotNull(result);
@@ -38,7 +38,7 @@ namespace load_board_api.Tests.Controllers
         public void GetById()
         {
             // Act
-            Value result = this.valuesController.Get(TestUtil.VALUES.ElementAt(0).Id);
+            TestObject result = this.valuesController.Get(TestUtil.VALUES.ElementAt(0).Id);
 
             // Assert
             Assert.IsNotNull(result);
@@ -49,7 +49,7 @@ namespace load_board_api.Tests.Controllers
         public void GetNonexistentById()
         {
             // Act
-            Value result = this.valuesController.Get(Guid.Empty);
+            TestObject result = this.valuesController.Get(Guid.Empty);
 
             // Assert
             Assert.IsNull(result);
@@ -59,7 +59,7 @@ namespace load_board_api.Tests.Controllers
         public void Post()
         {
             // Act
-            this.valuesController.Post(new Value { Name = "TEST" });
+            this.valuesController.Post(new TestObject { Name = "TEST" });
         }
 
         [TestMethod]
@@ -67,7 +67,7 @@ namespace load_board_api.Tests.Controllers
         public void Put()
         {
             // Act
-            this.valuesController.Put(Guid.Empty, new Value { Name = "TEST" });
+            this.valuesController.Put(Guid.Empty, new TestObject { Name = "TEST" });
         }
 
         [TestMethod]
