@@ -10,6 +10,7 @@ using System.Diagnostics;
 
 namespace load_board_api.Controllers
 {
+    [RoutePrefix("api/testobjects")]
     public class TestObjectController : ApiController
     {
         private IUnitOfWork unitOfWork;
@@ -19,7 +20,9 @@ namespace load_board_api.Controllers
             this.unitOfWork = unitOfWork;
         }
 
-        // GET api/values
+        // GET api/testobjects
+        [HttpGet]
+        [Route("")]
         public List<TestObject> Get()
         {
             try
@@ -33,13 +36,17 @@ namespace load_board_api.Controllers
             }
         }
 
-        // GET api/values/{id}
+        // GET api/testobjects/{id}
+        [HttpGet]
+        [Route("{id:guid}")]
         public TestObject Get(Guid id)
         {
             return unitOfWork.TestObjectRepo.Get(id);
         }
 
-        // POST api/values
+        // POST api/testobjects
+        [HttpPost]
+        [Route("")]
         public void Post([FromBody] TestObject value)
         {
             value.Id = Guid.NewGuid();
@@ -47,7 +54,9 @@ namespace load_board_api.Controllers
             this.unitOfWork.Save();
         }
 
-        // PUT api/values/{id}
+        // PUT api/testobjects/{id}
+        [HttpPut]
+        [Route("{id:guid}")]
         public void Put(Guid id, [FromBody] TestObject value)
         {
             TestObject dbValue = this.unitOfWork.TestObjectRepo.Get(id);
@@ -57,6 +66,8 @@ namespace load_board_api.Controllers
         }
 
         // DELETE api/values/{id}
+        [HttpDelete]
+        [Route("{id:guid}")]
         public void Delete(Guid id)
         {
             this.unitOfWork.TestObjectRepo.Delete(id);

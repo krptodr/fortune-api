@@ -15,7 +15,7 @@ namespace load_board_api.Persistence
                 new TestObject 
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Test Value 2"
+                    Name = "Test Value 1"
                 },
                 new TestObject 
                 {
