@@ -16,11 +16,11 @@ namespace load_board_api.Tests.Controllers
     [TestClass]
     public class ValuesControllerTest
     {
-        private ValuesController valuesController;
+        private TestObjectController valuesController;
 
         public ValuesControllerTest()
         {
-            this.valuesController = new ValuesController(TestUtil.UNIT_OF_WORK);
+            this.valuesController = new TestObjectController(TestUtil.UNIT_OF_WORK);
         }
 
         [TestMethod]

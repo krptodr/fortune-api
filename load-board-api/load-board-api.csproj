@@ -96,7 +96,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Models\TestObject.cs" />
     <Compile Include="Persistence\DbInit.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\TestObjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

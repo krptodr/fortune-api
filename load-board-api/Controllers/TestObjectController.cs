@@ -10,11 +10,11 @@ using System.Diagnostics;
 
 namespace load_board_api.Controllers
 {
-    public class ValuesController : ApiController
+    public class TestObjectController : ApiController
     {
         private IUnitOfWork unitOfWork;
 
-        public ValuesController(IUnitOfWork unitOfWork)
+        public TestObjectController(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
