@@ -14,11 +14,11 @@ using load_board_api.Tests.Test_Start;
 namespace load_board_api.Tests.Controllers
 {
     [TestClass]
-    public class TestObjectTest
+    public class TestObjectControllerTest
     {
         private TestObjectController valuesController;
 
-        public TestObjectTest()
+        public TestObjectControllerTest()
         {
             this.valuesController = new TestObjectController(TestUtil.UNIT_OF_WORK);
         }
