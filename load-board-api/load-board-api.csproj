@@ -134,6 +134,9 @@
   <ItemGroup>
     <Content Include="config\HiddenSettings.Template.Config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\ConnectionStrings.Template.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -167,10 +170,9 @@
   <Target Name="BeforeBuild">
   </Target> -->
   <Target Name="AfterBuild">
-	<Copy SourceFiles="config/HiddenSettings.Template.config"
-		  DestinationFiles="config/HiddenSettings.config"
-		  SkipUnchangedFiles="true"
-		  Condition="!Exists('config/HiddenSettings.config')">
-	</Copy>
+    <Copy SourceFiles="config/HiddenSettings.Template.config" DestinationFiles="config/HiddenSettings.config" SkipUnchangedFiles="true" Condition="!Exists('config/HiddenSettings.config')">
+    </Copy>
+    <Copy SourceFiles="config/ConnectionStrings.Template.config" DestinationFiles="config/ConnectionStrings.config" SkipUnchangedFiles="true" Condition="!Exists('config/ConnectionStrings.config')">
+    </Copy>
   </Target>
 </Project>
