@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace load_board_api.Models
         public Guid Id;
         [Required]
         public string Name;
-        [Required]
+        [Required, DefaultValue(false)]
         public bool Deleted;
         [Required, Column(TypeName = "datetime2")]
         public DateTime LastUpdated;
