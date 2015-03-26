@@ -19,17 +19,11 @@ namespace load_board_api.Services
         LocationDto Get(Guid id);
 
         /// <summary>
-        /// Gets all locations that have not been deleted
-        /// </summary>
-        /// <returns>List of locations</returns>
-        LocationDto[] Get();
-
-        /// <summary>
         /// Gets all locations
         /// </summary>
-        /// <param name="includeDeleted">Whether to include deleted locations</param>
+        /// <param name="includeDeleted">Optional - Whether to include deleted locations</param>
         /// <returns>List of locations</returns>
-        LocationDto[] Get(bool includeDeleted);
+        LocationDto[] Get(bool includeDeleted = false);
 
         /// <summary>
         /// Adds location

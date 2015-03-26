@@ -40,12 +40,7 @@ namespace load_board_api.Services
             return dto;
         }
 
-        public LocationDto[] Get()
-        {
-            return Get(false);
-        }
-
-        public LocationDto[] Get(bool includeDeleted)
+        public LocationDto[] Get(bool includeDeleted = false)
         {
             //Repo dependencies
             IRepo<Location> locationRepo = this.unitOfWork.LocationRepo;
