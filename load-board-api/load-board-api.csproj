@@ -119,9 +119,7 @@
     <Compile Include="Exceptions\ConflictException.cs" />
     <Compile Include="Exceptions\DoesNotExistException.cs" />
     <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\TestObject.cs" />
     <Compile Include="Persistence\DbInit.cs" />
-    <Compile Include="Controllers\TestObjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -11,22 +11,6 @@ namespace load_board_api.Persistence
     {
         protected override void Seed(LoadBoardDbContext context)
         {
-            //Test Objects
-            TestObject[] testObjects = new TestObject[] {
-                new TestObject 
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Test Value 1"
-                },
-                new TestObject 
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Test Value 2"
-                }
-            };
-
-            context.TestObjects.AddRange(testObjects);
-
             //Locations
             Location[] locations = new Location[] {
                 new Location {
