@@ -12,11 +12,12 @@ namespace load_board_api.Tests.Test_Start
     {
         protected override void Seed(LoadBoardDbContext context)
         {
-            TestObject[] values = new TestObject[] {
+            //Test Objects
+            TestObject[] testObjects = new TestObject[] {
                 new TestObject 
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Test Value 2"
+                    Name = "Test Value 1"
                 },
                 new TestObject 
                 {
@@ -25,7 +26,21 @@ namespace load_board_api.Tests.Test_Start
                 }
             };
 
-            context.Values.AddRange(values);
+            context.TestObjects.AddRange(testObjects);
+
+            //Locations
+            Location[] locations = new Location[] {
+                new Location {
+                    Id = Guid.NewGuid(),
+                    Name = "Test Location 1",
+                    LastUpdated = DateTime.UtcNow
+                },
+                new Location {
+                    Id = Guid.NewGuid(),
+                    Name = "Test Location 2",
+                    LastUpdated = DateTime.UtcNow
+                }
+            };
 
             context.SaveChanges();
         }
