@@ -33,7 +33,7 @@ namespace load_board_api.Controllers
             }
             else
             {
-                Trace.TraceError(e.StackTrace);
+                Trace.TraceError(e.GetBaseException().Message);
             }
 
             return statusCode;
@@ -49,7 +49,7 @@ namespace load_board_api.Controllers
             }
             else
             {
-                res = Request.CreateErrorResponse(statusCode, e.StackTrace);
+                res = Request.CreateErrorResponse(statusCode, e.GetBaseException().Message);
             }
             return res;
         }
