@@ -38,6 +38,12 @@ namespace load_board_api.Persistence
                     Id = Guid.NewGuid(),
                     Name = "Test Location 2",
                     LastUpdated = DateTime.UtcNow
+                },
+                new Location {
+                    Id = Guid.NewGuid(),
+                    Name = "Test Deleted Location",
+                    LastUpdated = DateTime.UtcNow,
+                    Deleted = true
                 }
             };
 
