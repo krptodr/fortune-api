@@ -11,7 +11,8 @@ namespace load_board_api.Persistence
     {
         protected override void Seed(LoadBoardDbContext context)
         {
-            TestObject[] values = new TestObject[] {
+            //Test Objects
+            TestObject[] testObjects = new TestObject[] {
                 new TestObject 
                 {
                     Id = Guid.NewGuid(),
@@ -24,7 +25,23 @@ namespace load_board_api.Persistence
                 }
             };
 
-            context.Values.AddRange(values);
+            context.TestObjects.AddRange(testObjects);
+
+            //Locations
+            Location[] locations = new Location[] {
+                new Location {
+                    Id = Guid.NewGuid(),
+                    Name = "Test Location 1",
+                    LastUpdated = DateTime.UtcNow
+                },
+                new Location {
+                    Id = Guid.NewGuid(),
+                    Name = "Test Location 2",
+                    LastUpdated = DateTime.UtcNow
+                }
+            };
+
+            context.Locations.AddRange(locations);
 
             context.SaveChanges();
         }
