@@ -13,12 +13,13 @@ namespace load_board_api.Tests.Test_Start
     static class TestUtil
     {
         public static readonly IUnitOfWork UNIT_OF_WORK;
-        public static readonly IEnumerable<TestObject> VALUES;
+        public static readonly IEnumerable<TestObject> TEST_OBJECTS;
+        public static readonly IEnumerable<Location> LOCATIONS;
 
         static TestUtil()
         {
             //Test data
-            VALUES = new List<TestObject>
+            TEST_OBJECTS = new List<TestObject>
             {
                 new TestObject {
                     Id = Guid.NewGuid(),
@@ -30,26 +31,53 @@ namespace load_board_api.Tests.Test_Start
                 }
             };
 
+            LOCATIONS = new List<Location> {
+                new Location {
+                    Id = Guid.NewGuid(),
+                    Name = "Test Location",
+                    LastUpdated = DateTime.UtcNow,
+                },
+                new Location {
+                    Id = Guid.NewGuid(),
+                    Name = "Test Deleted Location",
+                    Deleted = true,
+                    LastUpdated = DateTime.UtcNow
+                }
+            };
+
             //Mock Repos
-            Mock<IRepo<TestObject>> mockValueRepo = new Mock<IRepo<TestObject>>();
+            Mock<IRepo<TestObject>> mockTestObjectRepo = new Mock<IRepo<TestObject>>();
+            Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
 
             //Exists
-            mockValueRepo.Setup(x => x.Exists(It.IsIn<Guid>(new List<Guid> { VALUES.ElementAt(0).Id, VALUES.ElementAt(1).Id }))).Returns(true);
-            mockValueRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == Guid.Empty))).Returns(false);
+            mockTestObjectRepo.Setup(x => x.Exists(It.IsIn<Guid>(new List<Guid> { TEST_OBJECTS.ElementAt(0).Id, TEST_OBJECTS.ElementAt(1).Id }))).Returns(true);
+            mockTestObjectRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == Guid.Empty))).Returns(false);
+            mockLocationRepo.Setup(x => x.Exists(It.IsIn<Guid>(new List<Guid> { LOCATIONS.ElementAt(0).Id, LOCATIONS.ElementAt(1).Id }))).Returns(true);
+            mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == Guid.Empty))).Returns(false);
 
             //Query
-            mockValueRepo.Setup(x => x.Get(
+            mockTestObjectRepo.Setup(x => x.Get(
                 It.IsAny<Expression<Func<TestObject, bool>>>(),
                 It.IsAny<int>(),
                 It.IsAny<int>(),
                 It.IsAny<Func<IQueryable<TestObject>, IOrderedQueryable<TestObject>>>(),
                 It.IsAny<string>()
-            )).Returns(VALUES);
+            )).Returns(TEST_OBJECTS);
+            mockLocationRepo.Setup(x => x.Get(
+                It.IsAny<Expression<Func<Location, bool>>>(),
+                It.IsAny<int>(),
+                It.IsAny<int>(),
+                It.IsAny<Func<IQueryable<Location>, IOrderedQueryable<Location>>>(),
+                It.IsAny<string>()
+            )).Returns(new List<Location> {LOCATIONS.ElementAt(0)});
 
             //Get
-            mockValueRepo.Setup(x => x.Get(It.Is<Guid>(y => y == VALUES.ElementAt(0).Id))).Returns(VALUES.ElementAt(0));
-            mockValueRepo.Setup(x => x.Get(It.Is<Guid>(y => y == VALUES.ElementAt(1).Id))).Returns(VALUES.ElementAt(1));
-            mockValueRepo.Setup(x => x.Get(It.Is<Guid>(y => y == Guid.Empty))).Returns<TestObject>(null);
+            mockTestObjectRepo.Setup(x => x.Get(It.Is<Guid>(y => y == TEST_OBJECTS.ElementAt(0).Id))).Returns(TEST_OBJECTS.ElementAt(0));
+            mockTestObjectRepo.Setup(x => x.Get(It.Is<Guid>(y => y == TEST_OBJECTS.ElementAt(1).Id))).Returns(TEST_OBJECTS.ElementAt(1));
+            mockTestObjectRepo.Setup(x => x.Get(It.Is<Guid>(y => y == Guid.Empty))).Returns<TestObject>(null);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == LOCATIONS.ElementAt(0).Id))).Returns(LOCATIONS.ElementAt(0));
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == LOCATIONS.ElementAt(1).Id))).Returns(LOCATIONS.ElementAt(1));
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == Guid.Empty))).Returns<Location>(null);
 
             //LoadBoardDbContext
             Mock<LoadBoardDbContext> mockContext = new Mock<LoadBoardDbContext>();
@@ -57,7 +85,8 @@ namespace load_board_api.Tests.Test_Start
             //Unit of work
             UNIT_OF_WORK = new UnitOfWork(
                 mockContext.Object,
-                mockValueRepo.Object
+                mockTestObjectRepo.Object,
+                mockLocationRepo.Object
             );
         }
     }

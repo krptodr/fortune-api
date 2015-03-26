@@ -38,11 +38,11 @@ namespace load_board_api.Tests.Controllers
         public void GetById()
         {
             // Act
-            TestObject result = this.valuesController.Get(TestUtil.VALUES.ElementAt(0).Id);
+            TestObject result = this.valuesController.Get(TestUtil.TEST_OBJECTS.ElementAt(0).Id);
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(TestUtil.VALUES.ElementAt(0).Name, result.Name);
+            Assert.AreEqual(TestUtil.TEST_OBJECTS.ElementAt(0).Name, result.Name);
         }
 
         [TestMethod]
