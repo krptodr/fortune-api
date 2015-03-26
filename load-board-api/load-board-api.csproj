@@ -105,6 +105,7 @@
     <Compile Include="App_Start\UnityContainerBuilder.cs" />
     <Compile Include="App_Start\UnityResolver.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="LocationDto.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\TestObject.cs" />
     <Compile Include="Persistence\DbInit.cs" />
