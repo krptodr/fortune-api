@@ -1,5 +1,6 @@
 ﻿using load_board_api.Models;
 using load_board_api.Persistence;
+using load_board_api.Services;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace load_board_api.App_Start
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerResolveLifetimeManager());
             container.RegisterType<IRepo<TestObject>, Repo<TestObject>>(new PerResolveLifetimeManager());
             container.RegisterType<IRepo<Location>, Repo<Location>>(new PerResolveLifetimeManager());
+            container.RegisterType<ILocationService, LocationService>();
 
             return container;
         }
