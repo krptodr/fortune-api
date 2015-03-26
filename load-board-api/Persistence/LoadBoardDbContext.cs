@@ -10,7 +10,6 @@ namespace load_board_api.Persistence
 {
     public class LoadBoardDbContext : DbContext
     {
-        public DbSet<TestObject> TestObjects { get; set; }
         public DbSet<Location> Locations { get; set; }
 
         public LoadBoardDbContext()
