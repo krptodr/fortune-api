@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 
@@ -12,10 +13,10 @@ namespace load_board_api.Controllers
 {
     public abstract class AbstractController : ApiController
     {
+        private static readonly string ENV = ConfigurationManager.AppSettings["ENV"]; 
+
         public HttpStatusCode GetHttpStatusCode(Exception e)
         {
-            string env = ConfigurationManager.AppSettings["ENV"];
-
             HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
 
             if (e is AlreadyExistsException)
@@ -30,12 +31,27 @@ namespace load_board_api.Controllers
             {
                 statusCode = HttpStatusCode.Conflict;
             }
-            else if (env == "TEST" || env == "DEV")
+            else
             {
-                Trace.TraceError(e.GetBaseException().Message);
+                Trace.TraceError(e.StackTrace);
             }
 
             return statusCode;
+        }
+
+        public HttpResponseMessage GetErrorResponse(Exception e)
+        {
+            HttpResponseMessage res = null;
+            HttpStatusCode statusCode = GetHttpStatusCode(e);
+            if (ENV == "PROD" && statusCode == HttpStatusCode.InternalServerError)
+            {
+                res = Request.CreateResponse(statusCode);
+            }
+            else
+            {
+                res = Request.CreateErrorResponse(statusCode, e.StackTrace);
+            }
+            return res;
         }
     }
 }
