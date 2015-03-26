@@ -23,7 +23,7 @@ namespace load_board_api.Persistence
             this.disposed = false;
             this.context = context;
             this.TestObjectRepo = testObjectRepo;
-            this.LocationRepo = LocationRepo;
+            this.LocationRepo = locationRepo;
         }
 
         public void Save()

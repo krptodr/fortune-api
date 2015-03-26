@@ -22,7 +22,7 @@ namespace load_board_api.Services
         public LocationDto Get(Guid id)
         {
             //Repo dependencies
-            IRepo<Location> locationRepo = unitOfWork.LocationRepo;
+            IRepo<Location> locationRepo = this.unitOfWork.LocationRepo;
 
             //Get location from repo
             Location location = locationRepo.Get(id);

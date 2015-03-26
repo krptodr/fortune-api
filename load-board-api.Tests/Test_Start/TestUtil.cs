@@ -1,4 +1,6 @@
-﻿using load_board_api.Models;
+﻿using load_board_api.App_Start;
+using load_board_api.Dtos;
+using load_board_api.Models;
 using load_board_api.Persistence;
 using Moq;
 using System;
@@ -7,6 +9,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace load_board_api.Tests.Test_Start
 {
@@ -15,9 +19,13 @@ namespace load_board_api.Tests.Test_Start
         public static readonly IUnitOfWork UNIT_OF_WORK;
         public static readonly IEnumerable<TestObject> TEST_OBJECTS;
         public static readonly IEnumerable<Location> LOCATIONS;
+        public static readonly IEnumerable<LocationDto> LOCATION_DTOS;
 
         static TestUtil()
         {
+            //Automapper
+            AutoMapperConfig.RegisterMappings();
+
             //Test data
             TEST_OBJECTS = new List<TestObject>
             {
@@ -34,7 +42,12 @@ namespace load_board_api.Tests.Test_Start
             LOCATIONS = new List<Location> {
                 new Location {
                     Id = Guid.NewGuid(),
-                    Name = "Test Location",
+                    Name = "Test Location 1",
+                    LastUpdated = DateTime.UtcNow,
+                },
+                new Location {
+                    Id = Guid.NewGuid(),
+                    Name = "Test Location 2",
                     LastUpdated = DateTime.UtcNow,
                 },
                 new Location {
@@ -44,6 +57,7 @@ namespace load_board_api.Tests.Test_Start
                     LastUpdated = DateTime.UtcNow
                 }
             };
+            LOCATION_DTOS = Mapper.Map<IEnumerable<LocationDto>>(LOCATIONS);
 
             //Mock Repos
             Mock<IRepo<TestObject>> mockTestObjectRepo = new Mock<IRepo<TestObject>>();
@@ -88,6 +102,13 @@ namespace load_board_api.Tests.Test_Start
                 mockTestObjectRepo.Object,
                 mockLocationRepo.Object
             );
+        }
+
+        public static void AreEqual(LocationDto expected, LocationDto actual) {
+            Assert.AreEqual(expected.Id, actual.Id);
+            Assert.AreEqual(expected.Name, expected.Name);
+            Assert.AreEqual(expected.Deleted, actual.Deleted);
+            Assert.AreEqual(expected.LastUpdated, actual.LastUpdated);
         }
     }
 }
