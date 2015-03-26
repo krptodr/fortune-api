@@ -115,6 +115,7 @@
     <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Dtos\LocationDto.cs" />
+    <Compile Include="Dtos\TrailerDto.cs" />
     <Compile Include="Exceptions\AlreadyExistsException.cs" />
     <Compile Include="Exceptions\ConflictException.cs" />
     <Compile Include="Exceptions\DoesNotExistException.cs" />
