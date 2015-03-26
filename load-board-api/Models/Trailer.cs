@@ -11,7 +11,7 @@ namespace load_board_api.Models
     public class Trailer
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public Guid LocationId { get; set; }
         [ForeignKey("LocationId")]
