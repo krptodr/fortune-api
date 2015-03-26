@@ -11,12 +11,12 @@ namespace load_board_api.Models
     public class Location
     {
         [Key]
-        public Guid Id;
+        public Guid Id { get; set; }
         [Required]
-        public string Name;
+        public string Name { get; set; }
         [Required, DefaultValue(false)]
-        public bool Deleted;
+        public bool Deleted { get; set; }
         [Required, Column(TypeName = "datetime2")]
-        public DateTime LastUpdated;
+        public DateTime LastUpdated { get; set; }
     }
 }
