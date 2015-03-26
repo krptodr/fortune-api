@@ -10,6 +10,7 @@ namespace load_board_api.Persistence
     public interface IUnitOfWork : IDisposable
     {
         IRepo<Location> LocationRepo { get; set; }
+        IRepo<Trailer> TrailerRepo { get; set; }
 
         void Save();
     }

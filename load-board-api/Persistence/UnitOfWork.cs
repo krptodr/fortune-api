@@ -12,15 +12,18 @@ namespace load_board_api.Persistence
         private bool disposed;
 
         public IRepo<Location> LocationRepo { get; set; }
+        public IRepo<Trailer> TrailerRepo { get; set; }
 
         public UnitOfWork(
             LoadBoardDbContext context,
-            IRepo<Location> locationRepo
+            IRepo<Location> locationRepo,
+            IRepo<Trailer> trailerRepo
         )
         {
             this.disposed = false;
             this.context = context;
             this.LocationRepo = locationRepo;
+            this.TrailerRepo = trailerRepo;
         }
 
         public void Save()

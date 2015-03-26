@@ -30,8 +30,27 @@ namespace load_board_api.Persistence
                     Deleted = true
                 }
             };
-
             context.Locations.AddRange(locations);
+
+            //Trailers
+            Trailer[] trailers = new Trailer[] {
+                new Trailer {
+                    Id = 111111,
+                    LocationId = locations[0].Id,
+                    LastUpdated = DateTime.UtcNow
+                }, new Trailer {
+                    Id = 222222,
+                    LocationId = locations[0].Id,
+                    LastUpdated = DateTime.UtcNow
+                }, new Trailer {
+                    Id = 333333,
+                    LocationId = locations[0].Id,
+                    LastUpdated = DateTime.UtcNow,
+                    Deleted = true
+                }
+            };
+            context.Trailers.AddRange(trailers);
+            
 
             context.SaveChanges();
         }
