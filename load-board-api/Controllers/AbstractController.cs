@@ -30,7 +30,7 @@ namespace load_board_api.Controllers
             {
                 statusCode = HttpStatusCode.Conflict;
             }
-            else if (env == "TEST")
+            else if (env == "TEST" || env == "DEV")
             {
                 Trace.TraceError(e.GetBaseException().Message);
             }
