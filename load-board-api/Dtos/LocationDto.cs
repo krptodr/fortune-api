@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace load_board_api
+namespace load_board_api.Dtos
 {
     public class LocationDto
     {
