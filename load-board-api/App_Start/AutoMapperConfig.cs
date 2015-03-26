@@ -15,6 +15,10 @@ namespace load_board_api.App_Start
             //Location
             Mapper.CreateMap<Location, LocationDto>();
             Mapper.CreateMap<LocationDto, Location>();
+
+            //Trailer
+            Mapper.CreateMap<Trailer, TrailerDto>();
+            Mapper.CreateMap<TrailerDto, Trailer>();
         }
     }
 }
