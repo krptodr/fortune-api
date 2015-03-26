@@ -1,4 +1,5 @@
-﻿using load_board_api.Models;
+﻿using load_board_api.Dtos;
+using load_board_api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,20 +16,20 @@ namespace load_board_api.Services
         /// <param name="id">Location Id</param>
         /// <returns>Location</returns>
         /// <exception cref="DoesNotExistException">Location does not exist</exception>
-        Location Get(Guid id);
+        LocationDto Get(Guid id);
 
         /// <summary>
         /// Gets all locations that have not been deleted
         /// </summary>
         /// <returns>List of locations</returns>
-        Location[] Get();
+        LocationDto[] Get();
 
         /// <summary>
         /// Gets all locations
         /// </summary>
         /// <param name="includeDeleted">Whether to include deleted locations</param>
         /// <returns>List of locations</returns>
-        Location[] Get(bool includeDeleted);
+        LocationDto[] Get(bool includeDeleted);
 
         /// <summary>
         /// Adds location
@@ -36,7 +37,7 @@ namespace load_board_api.Services
         /// <param name="location">Location to add</param>
         /// <returns>Saved location</returns>
         /// <exception cref="AlreadyExistsException">A location with the same name already exists</exception>
-        Location Add(Location location);
+        LocationDto Add(LocationDto dto);
 
         /// <summary>
         /// Updates location
@@ -45,7 +46,7 @@ namespace load_board_api.Services
         /// <returns>Saved location</returns>
         /// <exception cref="DoesNotExistException">Location does not exist</exception>
         /// <exception cref="OutdatedDataException">Location data is outdated</exception>
-        Location Update(Location location);
+        LocationDto Update(LocationDto dto);
 
         /// <summary>
         /// Soft deletes location
