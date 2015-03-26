@@ -22,9 +22,9 @@ namespace load_board_api.Services
         /// </summary>
         /// <param name="includeDeleted">Optional - Whether to include deleted trailers</param>
         /// <param name="skip">Optional - Number of trailers to skip</param>
-        /// <param name="keep">Optional - Number of trailers to include</param>
+        /// <param name="num">Optional - Number of trailers to include</param>
         /// <returns>List of trailers</returns>
-        TrailerDto Get(bool includeDeleted = false, int skip = -1, int keep = -1);
+        TrailerDto[] Get(bool includeDeleted = false, int skip = -1, int num = -1);
 
         /// <summary>
         /// Adds trailer
@@ -32,6 +32,7 @@ namespace load_board_api.Services
         /// <param name="dto">Trailer to add</param>
         /// <returns>Saved trailer</returns>
         /// <exception cref="AlreadyExistsException">Trailer already exists</exception>
+        /// <exception cref="DoesNotExistException">Location does not exist</exception>
         TrailerDto Add(TrailerDto dto);
 
         /// <summary>
@@ -39,7 +40,7 @@ namespace load_board_api.Services
         /// </summary>
         /// <param name="dto">Trailer to update</param>
         /// <returns>Saved trailer</returns>
-        /// <exception cref="DoesNotExistException">Trailer does not exist</exception>
+        /// <exception cref="DoesNotExistException">Trailer or location does not exist</exception>
         /// <exception cref="ConflictException">Conflict occurred</exception>
         TrailerDto Update(TrailerDto dto);
 

@@ -134,6 +134,7 @@
     <Compile Include="Services\ILocationService.cs" />
     <Compile Include="Services\ITrailerService.cs" />
     <Compile Include="Services\LocationService.cs" />
+    <Compile Include="Services\TrailerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
