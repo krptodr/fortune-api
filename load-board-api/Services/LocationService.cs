@@ -134,7 +134,7 @@ namespace load_board_api.Services
             //Ensure data is up-to-date
             if (location.LastUpdated > dto.LastUpdated)
             {
-                throw new OutdatedDataException();
+                throw new ConflictException();
             }
 
             //Update location

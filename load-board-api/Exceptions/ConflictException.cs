@@ -5,21 +5,21 @@ using System.Web;
 
 namespace load_board_api.Exceptions
 {
-    public class OutdatedDataException : Exception
+    public class ConflictException : Exception
     {
-        private const string DEFAULT_MSG = "Data is outdated!";
+        private const string DEFAULT_MSG = "A data conflict occurred!";
 
-        public OutdatedDataException()
+        public ConflictException()
             : base(DEFAULT_MSG)
         {
         }
 
-        public OutdatedDataException(string msg)
+        public ConflictException(string msg)
             : base(msg)
         {
         }
 
-        public OutdatedDataException(string msg, Exception inner)
+        public ConflictException(string msg, Exception inner)
             : base(msg, inner)
         {
         }

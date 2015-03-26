@@ -72,7 +72,7 @@ namespace load_board_api.Tests.Services
         }
 
         [TestMethod]
-        [ExpectedException(typeof(OutdatedDataException))]
+        [ExpectedException(typeof(ConflictException))]
         public void UpdateLocationOutdated()
         {
             LocationDto testDto = TestUtil.LOCATION_DTOS.ElementAt(0);

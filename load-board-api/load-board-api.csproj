@@ -112,9 +112,10 @@
     <Compile Include="App_Start\UnityContainerBuilder.cs" />
     <Compile Include="App_Start\UnityResolver.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Dtos\LocationDto.cs" />
     <Compile Include="Exceptions\AlreadyExistsException.cs" />
-    <Compile Include="Exceptions\OutdatedDataException.cs" />
+    <Compile Include="Exceptions\ConflictException.cs" />
     <Compile Include="Exceptions\DoesNotExistException.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\TestObject.cs" />

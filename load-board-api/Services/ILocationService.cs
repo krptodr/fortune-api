@@ -45,7 +45,7 @@ namespace load_board_api.Services
         /// <param name="location">Location to update</param>
         /// <returns>Saved location</returns>
         /// <exception cref="DoesNotExistException">Location does not exist</exception>
-        /// <exception cref="OutdatedDataException">Location data is outdated</exception>
+        /// <exception cref="ConflictException">Conflict occurred</exception>
         LocationDto Update(LocationDto dto);
 
         /// <summary>
