@@ -13,17 +13,20 @@ namespace load_board_api.Persistence
 
         public IRepo<Location> LocationRepo { get; set; }
         public IRepo<Trailer> TrailerRepo { get; set; }
+        public IRepo<Load> LoadRepo { get; set; }
 
         public UnitOfWork(
             LoadBoardDbContext context,
             IRepo<Location> locationRepo,
-            IRepo<Trailer> trailerRepo
+            IRepo<Trailer> trailerRepo,
+            IRepo<Load> loadRepo
         )
         {
             this.disposed = false;
             this.context = context;
             this.LocationRepo = locationRepo;
             this.TrailerRepo = trailerRepo;
+            this.LoadRepo = loadRepo;
         }
 
         public void Save()

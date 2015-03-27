@@ -37,15 +37,12 @@ namespace load_board_api.Services
             //Get location from repo
             Location location = locationRepo.Get(trailer.LocationId);
 
-            //Ensure location exists
-            if (location == null)
-            {
-                throw new DoesNotExistException();
-            }
-
             //Create dto
             TrailerDto dto = Mapper.Map<TrailerDto>(trailer);
-            dto.Location = Mapper.Map<LocationDto>(location);
+            if (location != null)
+            {
+                dto.Location = Mapper.Map<LocationDto>(location);
+            }
 
             //Return dto
             return dto;
@@ -86,11 +83,10 @@ namespace load_board_api.Services
             for (int i = 0; i < numTrailers; i++)
             {
                 location = locationRepo.Get(trailers.ElementAt(i).LocationId);
-                if (location == null)
+                if (location != null)
                 {
-                    throw new DoesNotExistException();
+                    dtos[i].Location = Mapper.Map<LocationDto>(location);
                 }
-                dtos[i].Location = Mapper.Map<LocationDto>(location);
             }
 
             //Return dtos

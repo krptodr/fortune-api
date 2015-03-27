@@ -20,8 +20,10 @@ namespace load_board_api.App_Start
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerResolveLifetimeManager());
             container.RegisterType<IRepo<Location>, Repo<Location>>(new PerResolveLifetimeManager());
             container.RegisterType<IRepo<Trailer>, Repo<Trailer>>(new PerResolveLifetimeManager());
+            container.RegisterType<IRepo<Load>, Repo<Load>>(new PerResolveLifetimeManager());
             container.RegisterType<ILocationService, LocationService>();
             container.RegisterType<ITrailerService, TrailerService>();
+            container.RegisterType<ILoadService, LoadService>();
 
             return container;
         }

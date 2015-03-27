@@ -12,6 +12,7 @@ namespace load_board_api.Persistence
     {
         public DbSet<Location> Locations { get; set; }
         public DbSet<Trailer> Trailers { get; set; }
+        public DbSet<Load> Loads { get; set; }
 
         public LoadBoardDbContext()
             : base("LoadBoardDbContext")

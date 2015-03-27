@@ -19,6 +19,10 @@ namespace load_board_api.App_Start
             //Trailer
             Mapper.CreateMap<Trailer, TrailerDto>();
             Mapper.CreateMap<TrailerDto, Trailer>();
+
+            //Load
+            Mapper.CreateMap<Load, LoadDto>();
+            Mapper.CreateMap<LoadDto, Load>();
         }
     }
 }

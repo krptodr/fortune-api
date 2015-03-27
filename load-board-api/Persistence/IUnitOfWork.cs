@@ -11,6 +11,7 @@ namespace load_board_api.Persistence
     {
         IRepo<Location> LocationRepo { get; set; }
         IRepo<Trailer> TrailerRepo { get; set; }
+        IRepo<Load> LoadRepo { get; set; }
 
         void Save();
     }
