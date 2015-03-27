@@ -64,17 +64,19 @@ namespace load_board_api.Persistence
             if (orderBy != null)
             {
                 query = orderBy(query);
+
+                if (skip > -1)
+                {
+                    query = query.Skip(skip);
+                }
+
+                if (num > -1)
+                {
+                    query = query.Take(num);
+                }
             }
 
-            if (skip > -1)
-            {
-                query = query.Skip(skip);
-            }
-
-            if (num > -1)
-            {
-                query = query.Take(num);
-            }
+            
 
             return query.ToList();
         }

@@ -62,6 +62,7 @@ namespace load_board_api.Services
             if (includeDeleted)
             {
                 trailers = trailerRepo.Get(
+                    orderBy: x => x.OrderBy(y => y.Id),
                     skip: skip,
                     num: num
                 );
@@ -69,6 +70,7 @@ namespace load_board_api.Services
             else
             {
                 trailers = trailerRepo.Get(
+                    orderBy: x => x.OrderBy(y => y.Id),
                     filter: x => x.Deleted == false,
                     skip: skip,
                     num: num
