@@ -114,6 +114,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\TrailerController.cs" />
     <Compile Include="Dtos\LocationDto.cs" />
     <Compile Include="Dtos\TrailerDto.cs" />
     <Compile Include="Exceptions\AlreadyExistsException.cs" />

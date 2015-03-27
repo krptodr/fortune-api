@@ -19,7 +19,9 @@ namespace load_board_api.App_Start
             container.RegisterType<LoadBoardDbContext>(new PerResolveLifetimeManager());
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerResolveLifetimeManager());
             container.RegisterType<IRepo<Location>, Repo<Location>>(new PerResolveLifetimeManager());
+            container.RegisterType<IRepo<Trailer>, Repo<Trailer>>(new PerResolveLifetimeManager());
             container.RegisterType<ILocationService, LocationService>();
+            container.RegisterType<ITrailerService, TrailerService>();
 
             return container;
         }
