@@ -51,13 +51,14 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = false,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
+            testDto.Location = Mapper.Map<LocationDto>(testLocation);
 
             //Mock call
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns(testTrailer);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
 
             //Unit of work
             IUnitOfWork unitOfWork = new UnitOfWork(
@@ -134,18 +135,20 @@ namespace load_board_api.Tests.Services
                     Id = 111111,
                     LastUpdated = DateTime.UtcNow,
                     Deleted = false,
-                    LocationId = testLocation.Id,
-                    Location = testLocation
+                    LocationId = testLocation.Id
                 },
                 new Trailer {
                     Id = 222222,
                     LastUpdated = DateTime.UtcNow,
                     Deleted = false,
-                    LocationId = testLocation.Id,
-                    Location = testLocation
+                    LocationId = testLocation.Id
                 }
             };
             TrailerDto[] testDtos = Mapper.Map<TrailerDto[]>(testTrailers);
+            foreach (TrailerDto testDto in testDtos)
+            {
+                testDto.Location = Mapper.Map<LocationDto>(testLocation);
+            }
 
             //Mock call
             mockTrailerRepo.Setup(x => x.Get(
@@ -155,6 +158,7 @@ namespace load_board_api.Tests.Services
                 It.IsAny<Func<IQueryable<Trailer>, IOrderedQueryable<Trailer>>>(),
                 ""
             )).Returns(testTrailers);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
 
             //Unit of work
             IUnitOfWork unitOfWork = new UnitOfWork(
@@ -200,18 +204,20 @@ namespace load_board_api.Tests.Services
                     Id = 111111,
                     LastUpdated = DateTime.UtcNow,
                     Deleted = false,
-                    LocationId = testLocation.Id,
-                    Location = testLocation
+                    LocationId = testLocation.Id
                 },
                 new Trailer {
                     Id = 222222,
                     LastUpdated = DateTime.UtcNow,
                     Deleted = true,
-                    LocationId = testLocation.Id,
-                    Location = testLocation
+                    LocationId = testLocation.Id
                 }
             };
             TrailerDto[] testDtos = Mapper.Map<TrailerDto[]>(testTrailers);
+            foreach (TrailerDto testDto in testDtos)
+            {
+                testDto.Location = Mapper.Map<LocationDto>(testLocation);
+            }
 
             //Mock call
             mockTrailerRepo.Setup(x => x.Get(
@@ -221,6 +227,7 @@ namespace load_board_api.Tests.Services
                 It.IsAny<Func<IQueryable<Trailer>, IOrderedQueryable<Trailer>>>(),
                 ""
             )).Returns(testTrailers);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
 
             //Unit of work
             IUnitOfWork unitOfWork = new UnitOfWork(
@@ -265,13 +272,14 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = false,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
+            testDto.Location = Mapper.Map<LocationDto>(testLocation);
 
             //Mock calls
             mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == testLocation.Id))).Returns(true);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
 
             //Unit of work
@@ -317,13 +325,14 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = true,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
+            testDto.Location = Mapper.Map<LocationDto>(testLocation);
 
             //Mock calls
             mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == testLocation.Id))).Returns(true);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns(testTrailer);
 
             //Unit of work
@@ -369,13 +378,14 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = false,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
+            testDto.Location = Mapper.Map<LocationDto>(testLocation);
 
             //Mock calls
             mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == testLocation.Id))).Returns(true);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
 
             //Unit of work
@@ -422,13 +432,13 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = false,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
+            testDto.Location = Mapper.Map<LocationDto>(testLocation);
 
             //Mock calls
-            mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == testLocation.Id))).Returns(true);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns(testTrailer);
 
             //Unit of work
@@ -474,13 +484,13 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = false,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
+            testDto.Location = Mapper.Map<LocationDto>(testLocation);
 
             //Mock calls
-            mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == testLocation.Id))).Returns(false);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns<Location>(null);
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
 
             //Unit of work
@@ -525,13 +535,14 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = false,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
+            testDto.Location = Mapper.Map<LocationDto>(testLocation);
 
             //Mock calls
             mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == testLocation.Id))).Returns(true);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns(testTrailer);
 
             //Unit of work
@@ -578,13 +589,13 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = false,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
+            testDto.Location = Mapper.Map<LocationDto>(testLocation);
 
             //Mock calls
-            mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == testLocation.Id))).Returns(true);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
 
             //Unit of work
@@ -630,14 +641,15 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = false,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
             testDto.LastUpdated = testDto.LastUpdated.AddMilliseconds(-1);
+            testDto.Location = Mapper.Map<LocationDto>(testLocation);
 
             //Mock calls
             mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == testLocation.Id))).Returns(true);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns(testTrailer);
 
             //Unit of work
@@ -683,14 +695,14 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = false,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
+            testDto.Location = Mapper.Map<LocationDto>(testLocation);
 
             //Mock calls
-            mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == testLocation.Id))).Returns(false);
-            mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns(testTrailer);
+            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
+            mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
 
             //Unit of work
             IUnitOfWork unitOfWork = new UnitOfWork(
@@ -735,8 +747,7 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = false,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
 
@@ -785,8 +796,7 @@ namespace load_board_api.Tests.Services
                 Id = 111111,
                 LastUpdated = DateTime.UtcNow,
                 Deleted = false,
-                LocationId = testLocation.Id,
-                Location = testLocation
+                LocationId = testLocation.Id
             };
             TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
 

@@ -23,6 +23,7 @@ namespace load_board_api.Services
         {
             //Repo dependencies
             IRepo<Trailer> trailerRepo = this.unitOfWork.TrailerRepo;
+            IRepo<Location> locationRepo = this.unitOfWork.LocationRepo;
 
             //Get trailer from repo
             Trailer trailer = trailerRepo.Get(id);
@@ -33,8 +34,18 @@ namespace load_board_api.Services
                 throw new DoesNotExistException();
             }
 
+            //Get location from repo
+            Location location = locationRepo.Get(trailer.LocationId);
+
+            //Ensure location exists
+            if (location == null)
+            {
+                throw new DoesNotExistException();
+            }
+
             //Create dto
             TrailerDto dto = Mapper.Map<TrailerDto>(trailer);
+            dto.Location = Mapper.Map<LocationDto>(location);
 
             //Return dto
             return dto;
@@ -44,6 +55,7 @@ namespace load_board_api.Services
         {
             //Repo dependencies
             IRepo<Trailer> trailerRepo = this.unitOfWork.TrailerRepo;
+            IRepo<Location> locationRepo = this.unitOfWork.LocationRepo;
 
             //Get trailers
             IEnumerable<Trailer> trailers;
@@ -66,6 +78,19 @@ namespace load_board_api.Services
             //Create dtos
             TrailerDto[] dtos = Mapper.Map<TrailerDto[]>(trailers);
 
+            //Get locations
+            int numTrailers = dtos.Length;
+            Location location;
+            for (int i = 0; i < numTrailers; i++)
+            {
+                location = locationRepo.Get(trailers.ElementAt(i).LocationId);
+                if (location == null)
+                {
+                    throw new DoesNotExistException();
+                }
+                dtos[i].Location = Mapper.Map<LocationDto>(location);
+            }
+
             //Return dtos
             return dtos;
         }
@@ -76,8 +101,11 @@ namespace load_board_api.Services
             IRepo<Location> locationRepo = this.unitOfWork.LocationRepo;
             IRepo<Trailer> trailerRepo = this.unitOfWork.TrailerRepo;
 
+            //Get location
+            Location location = locationRepo.Get(dto.Location.Id);
+
             //Ensure location exists
-            if (!locationRepo.Exists(dto.Location.Id))
+            if (location == null)
             {
                 throw new DoesNotExistException();
             }
@@ -111,6 +139,7 @@ namespace load_board_api.Services
 
             //Create dto
             dto = Mapper.Map<TrailerDto>(trailer);
+            dto.Location = Mapper.Map<LocationDto>(location);
 
             //Return dto
             return dto;
@@ -122,11 +151,20 @@ namespace load_board_api.Services
             IRepo<Location> locationRepo = this.unitOfWork.LocationRepo;
             IRepo<Trailer> trailerRepo = this.unitOfWork.TrailerRepo;
 
+            //Get location
+            Location location = locationRepo.Get(dto.Location.Id);
+
+            //Ensure location exists
+            if (location == null)
+            {
+                throw new DoesNotExistException();
+            }
+
             //Get trailer from repo
             Trailer trailer = trailerRepo.Get(dto.Id);
 
-            //Ensure trailer and location exist
-            if (trailer == null || !locationRepo.Exists(dto.Location.Id))
+            //Ensure trailer exists
+            if (trailer == null)
             {
                 throw new DoesNotExistException();
             }
@@ -148,6 +186,7 @@ namespace load_board_api.Services
 
             //Create dto
             dto = Mapper.Map<TrailerDto>(trailer);
+            dto.Location = Mapper.Map<LocationDto>(location);
 
             //Return dto
             return dto;

@@ -14,8 +14,6 @@ namespace load_board_api.Models
         public int Id { get; set; }
         [Required]
         public Guid LocationId { get; set; }
-        [ForeignKey("LocationId")]
-        public virtual Location Location { get; set; }
         [Required, DefaultValue(false)]
         public bool Deleted { get; set; }
         [Required, Column(TypeName="datetime2")]
