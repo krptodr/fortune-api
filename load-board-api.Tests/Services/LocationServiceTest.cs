@@ -20,6 +20,8 @@ namespace load_board_api.Tests.Services
     [TestClass]
     public class LocationServiceTest
     {
+        #region Get Location
+
         [TestMethod]
         public void GetLocation()
         {
@@ -32,6 +34,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -50,7 +53,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -71,6 +75,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Mock call
             mockLocationRepo.Setup(x => x.Get(It.IsAny<Guid>())).Returns<Location>(null);
@@ -79,7 +84,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -88,6 +94,10 @@ namespace load_board_api.Tests.Services
             //Test
             LocationDto dto = locationService.Get(Guid.NewGuid());
         }
+
+        #endregion
+
+        #region Get Locations
 
         [TestMethod]
         public void GetLocations()
@@ -101,6 +111,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test locations
             IEnumerable<Location> testLocations = new List<Location> {
@@ -132,7 +143,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -155,6 +167,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test locations
             IEnumerable<Location> testLocations = new List<Location> {
@@ -186,7 +199,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -196,6 +210,10 @@ namespace load_board_api.Tests.Services
             LocationDto[] dtos = locationService.Get(true);
             TestUtil.Compare(testDtos, dtos);
         }
+
+        #endregion
+
+        #region Add Location
 
         [TestMethod]
         public void AddLocation()
@@ -209,6 +227,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             LocationDto testDto = new LocationDto
@@ -232,7 +251,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -255,6 +275,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -279,7 +300,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -303,6 +325,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -327,7 +350,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -336,6 +360,10 @@ namespace load_board_api.Tests.Services
             //Test
             LocationDto dto = locationService.Add(testDto);
         }
+
+        #endregion
+
+        #region Update location
 
         [TestMethod]
         public void UpdateLocation()
@@ -349,6 +377,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -367,7 +396,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -391,6 +421,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -409,7 +440,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -432,6 +464,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -451,7 +484,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -460,6 +494,10 @@ namespace load_board_api.Tests.Services
             //Test
             LocationDto dto = locationService.Update(testDto);
         }
+
+        #endregion
+
+        #region Delete Location
 
         [TestMethod]
         public void DeleteLocation()
@@ -473,6 +511,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -490,7 +529,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -512,6 +552,7 @@ namespace load_board_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
+            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test id
             Guid testId = Guid.NewGuid();
@@ -523,7 +564,8 @@ namespace load_board_api.Tests.Services
             IUnitOfWork unitOfWork = new UnitOfWork(
                 mockContext.Object,
                 mockLocationRepo.Object,
-                mockTrailerRepo.Object
+                mockTrailerRepo.Object,
+                mockLoadRepo.Object
             );
 
             //Location Service
@@ -532,5 +574,7 @@ namespace load_board_api.Tests.Services
             //Test
             locationService.Delete(testId);
         }
+
+        #endregion
     }
 }
