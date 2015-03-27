@@ -10,7 +10,7 @@ namespace load_board_api.Models
 {
     public class Trailer
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         [Required]
         public Guid LocationId { get; set; }
