@@ -16,71 +16,147 @@ namespace load_board_api.Tests.Test_Start
 {
     static class TestUtil
     {
-        public static readonly IUnitOfWork UNIT_OF_WORK;
-        public static readonly IEnumerable<Location> LOCATIONS;
-        public static readonly IEnumerable<LocationDto> LOCATION_DTOS;
-
-        static TestUtil()
+        public static void Compare(
+            LocationDto[] expected,
+            LocationDto[] actual,
+            bool idEqual = true,
+            bool nameEqual = true,
+            bool deletedEqual = true,
+            bool lastUpdatedEqual = true
+        )
         {
-            //Automapper
-            AutoMapperConfig.RegisterMappings();
-
-            LOCATIONS = new List<Location> {
-                new Location {
-                    Id = Guid.NewGuid(),
-                    Name = "Test Location 1",
-                    LastUpdated = DateTime.UtcNow,
-                },
-                new Location {
-                    Id = Guid.NewGuid(),
-                    Name = "Test Location 2",
-                    LastUpdated = DateTime.UtcNow,
-                },
-                new Location {
-                    Id = Guid.NewGuid(),
-                    Name = "Test Deleted Location",
-                    Deleted = true,
-                    LastUpdated = DateTime.UtcNow
-                }
-            };
-            LOCATION_DTOS = Mapper.Map<IEnumerable<LocationDto>>(LOCATIONS);
-
-            //Mock Repos
-            Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-
-            //Exists
-            mockLocationRepo.Setup(x => x.Exists(It.IsIn<Guid>(new List<Guid> { LOCATIONS.ElementAt(0).Id, LOCATIONS.ElementAt(1).Id }))).Returns(true);
-            mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == Guid.Empty))).Returns(false);
-
-            //Query
-            mockLocationRepo.Setup(x => x.Get(
-                It.IsAny<Expression<Func<Location, bool>>>(),
-                It.IsAny<int>(),
-                It.IsAny<int>(),
-                It.IsAny<Func<IQueryable<Location>, IOrderedQueryable<Location>>>(),
-                It.IsAny<string>()
-            )).Returns(new List<Location> {LOCATIONS.ElementAt(0)});
-
-            //Get
-            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == LOCATIONS.ElementAt(0).Id))).Returns(LOCATIONS.ElementAt(0));
-            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == LOCATIONS.ElementAt(1).Id))).Returns(LOCATIONS.ElementAt(1));
-            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == Guid.Empty))).Returns<Location>(null);
-
-            //LoadBoardDbContext
-            Mock<LoadBoardDbContext> mockContext = new Mock<LoadBoardDbContext>();
-
-            //Unit of work
-            UNIT_OF_WORK = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object
-            );
+            int numExpected = expected.Length;
+            int numActual = actual.Length;
+            Assert.AreEqual(numExpected, numActual);
+            for (int i = 0; i < numExpected; i++)
+            {
+                Compare(
+                    expected[i],
+                    actual[i],
+                    idEqual: idEqual,
+                    nameEqual: nameEqual,
+                    deletedEqual: deletedEqual,
+                    lastUpdatedEqual: lastUpdatedEqual
+                );
+            }
         }
 
-        public static void AreEqual(LocationDto expected, LocationDto actual) {
-            Assert.AreEqual(expected.Id, actual.Id);
-            Assert.AreEqual(expected.Name, expected.Name);
-            Assert.AreEqual(expected.Deleted, actual.Deleted);
-            Assert.AreEqual(expected.LastUpdated, actual.LastUpdated);
+        public static void Compare(
+            LocationDto expected,
+            LocationDto actual,
+            bool idEqual = true,
+            bool nameEqual = true,
+            bool deletedEqual = true,
+            bool lastUpdatedEqual = true
+        ) {
+            if (idEqual)
+            {
+                Assert.AreEqual(expected.Id, actual.Id);
+            }
+            else
+            {
+                Assert.AreNotEqual(expected.Id, actual.Id);
+            }
+            if (nameEqual)
+            {
+                Assert.AreEqual(expected.Name, expected.Name);
+            }
+            else
+            {
+                Assert.AreNotEqual(expected.Name, expected.Name);
+            }
+            if (deletedEqual)
+            {
+                Assert.AreEqual(expected.Deleted, actual.Deleted);
+            }
+            else
+            {
+                Assert.AreNotEqual(expected.Deleted, actual.Deleted);
+            }
+            if (lastUpdatedEqual)
+            {
+                Assert.AreEqual(expected.LastUpdated, actual.LastUpdated);
+            }
+            else
+            {
+                Assert.AreNotEqual(expected.LastUpdated, actual.LastUpdated);
+            }
+        }
+
+        public static void Compare(
+            TrailerDto[] expected,
+            TrailerDto[] actual,
+            bool idEqual = true,
+            bool lastUpdatedEqual = true,
+            bool deletedEqual = true,
+            bool locationIdEqual = true,
+            bool locationNameEqual = true,
+            bool locationDeletedEqual = true,
+            bool locationLastUpdatedEqual = true
+        )
+        {
+            int numExpected = expected.Length;
+            int numActual = actual.Length;
+            Assert.AreEqual(numExpected, numActual);
+            for (int i = 0; i < numExpected; i++)
+            {
+                Compare(
+                    expected[i],
+                    actual[i],
+                    idEqual:idEqual,
+                    lastUpdatedEqual:lastUpdatedEqual,
+                    deletedEqual:deletedEqual,
+                    locationIdEqual:locationIdEqual,
+                    locationNameEqual:locationNameEqual,
+                    locationDeletedEqual:locationDeletedEqual,
+                    locationLastUpdatedEqual: locationLastUpdatedEqual
+                );
+            }
+        }
+
+        public static void Compare(
+            TrailerDto expected,
+            TrailerDto actual,
+            bool idEqual = true,
+            bool lastUpdatedEqual = true,
+            bool deletedEqual = true,
+            bool locationIdEqual = true,
+            bool locationNameEqual = true,
+            bool locationDeletedEqual = true,
+            bool locationLastUpdatedEqual = true
+        ) {
+            Compare(
+                expected.Location,
+                actual.Location,
+                idEqual: locationIdEqual,
+                nameEqual: locationNameEqual,
+                deletedEqual: locationDeletedEqual,
+                lastUpdatedEqual: locationLastUpdatedEqual
+            );
+            if (idEqual)
+            {
+                Assert.AreEqual(expected.Id, actual.Id);
+            }
+            else
+            {
+                Assert.AreNotEqual(expected.Id, actual.Id);
+            }
+            if (lastUpdatedEqual)
+            {
+                Assert.AreEqual(expected.LastUpdated, actual.LastUpdated);
+            }
+            else
+            {
+                Assert.AreNotEqual(expected.LastUpdated, actual.LastUpdated);
+            }
+            if (deletedEqual)
+            {
+                Assert.AreEqual(expected.Deleted, actual.Deleted);
+            }
+            else
+            {
+                Assert.AreNotEqual(expected.Deleted, actual.Deleted);
+            }
         }
     }
 }

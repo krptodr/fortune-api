@@ -18,7 +18,7 @@ namespace load_board_api.Models
         public virtual Location Location { get; set; }
         [Required, DefaultValue(false)]
         public bool Deleted { get; set; }
-        [Required]
+        [Required, Column(TypeName="datetime2")]
         public DateTime LastUpdated { get; set; }
     }
 }
