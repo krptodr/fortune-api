@@ -15,7 +15,7 @@ namespace load_board_api.Models
         public Guid Id { get; set; }
         [Required]
         public LoadType Type { get; set; }
-        [Required, Timestamp, Column(TypeName = "datetime2")]
+        [Timestamp]
         public byte[] RowVersion { get; set; }
         [Required]
         public bool Deleted { get; set; }

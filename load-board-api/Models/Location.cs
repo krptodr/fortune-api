@@ -16,7 +16,7 @@ namespace load_board_api.Models
         public string Name { get; set; }
         [Required, DefaultValue(false)]
         public bool Deleted { get; set; }
-        [Required, Timestamp, Column(TypeName = "datetime2")]
+        [Timestamp]
         public byte[] RowVersion { get; set; }
     }
 }
