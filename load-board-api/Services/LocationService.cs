@@ -83,7 +83,6 @@ namespace load_board_api.Services
             {
                 location = Mapper.Map<Location>(dto);
                 location.Id = Guid.NewGuid();
-                location.LastUpdated = DateTime.UtcNow;
                 locationRepo.Insert(location);
             }
             else
@@ -93,7 +92,6 @@ namespace load_board_api.Services
                 {
                     location.Deleted = false;
                     location.Name = dto.Name;
-                    location.LastUpdated = DateTime.UtcNow;
                     locationRepo.Update(location);
                 }
                 else
@@ -122,16 +120,9 @@ namespace load_board_api.Services
             {
                 throw new DoesNotExistException();
             }
-            
-            //Ensure data is up-to-date
-            if (location.LastUpdated > dto.LastUpdated)
-            {
-                throw new ConflictException();
-            }
 
             //Update location
             location.Deleted = dto.Deleted;
-            location.LastUpdated = DateTime.UtcNow;
             location.Name = dto.Name;
             locationRepo.Update(location);
 
@@ -155,7 +146,6 @@ namespace load_board_api.Services
             {
                 //Soft-delete location
                 location.Deleted = true;
-                location.LastUpdated = DateTime.UtcNow;
                 locationRepo.Update(location);
             }
         }

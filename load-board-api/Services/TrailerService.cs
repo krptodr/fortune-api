@@ -117,14 +117,12 @@ namespace load_board_api.Services
             if (trailer == null)
             {
                 trailer = Mapper.Map<Trailer>(dto);
-                trailer.LastUpdated = DateTime.UtcNow;
                 trailerRepo.Insert(trailer);
             }
             else if (trailer.Deleted)
             {
                 trailer.Deleted = false;
                 trailer.LocationId = dto.Location.Id;
-                trailer.LastUpdated = DateTime.UtcNow;
                 trailerRepo.Update(trailer);
             }
             else
@@ -164,16 +162,9 @@ namespace load_board_api.Services
                 throw new DoesNotExistException();
             }
 
-            //Prevent conflict
-            if (trailer.LastUpdated > dto.LastUpdated)
-            {
-                throw new ConflictException();
-            }
-
             //Update trailer
             trailer.LocationId = dto.Location.Id;
             trailer.Deleted = dto.Deleted;
-            trailer.LastUpdated = DateTime.UtcNow;
             trailerRepo.Update(trailer);
 
             //Create dto
@@ -197,7 +188,6 @@ namespace load_board_api.Services
             {
                 //Soft-delete trailer
                 trailer.Deleted = true;
-                trailer.LastUpdated = DateTime.UtcNow;
                 trailerRepo.Update(trailer);
             }
         }

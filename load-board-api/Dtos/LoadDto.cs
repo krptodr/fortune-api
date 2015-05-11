@@ -10,7 +10,7 @@ namespace load_board_api.Dtos
     {
         public Guid Id { get; set; }
         public LoadType Type { get; set; }
-        public DateTime? LastUpdated { get; set; }
+        public DateTime LastUpdated { get; set; }
         public LoadStatus Status { get; set; }
         public TrailerDto Trailer { get; set; }
         public LocationDto Origin { get; set; }

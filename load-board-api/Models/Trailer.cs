@@ -16,7 +16,7 @@ namespace load_board_api.Models
         public Guid LocationId { get; set; }
         [Required, DefaultValue(false)]
         public bool Deleted { get; set; }
-        [Required, Column(TypeName="datetime2")]
-        public DateTime LastUpdated { get; set; }
+        [Required, Timestamp, Column(TypeName="datetime2")]
+        public byte[] RowVersion { get; set; }
     }
 }

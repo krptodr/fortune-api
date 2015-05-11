@@ -234,13 +234,11 @@ namespace load_board_api.Services
             {
                 load = Mapper.Map<Load>(dto);
                 load.Id = Guid.NewGuid();
-                load.LastUpdated = DateTime.UtcNow;
                 loadRepo.Insert(load);
             }
             else if (load.Deleted)
             {
                 load.Deleted = false;
-                load.LastUpdated = DateTime.UtcNow;
                 load.Appointment = dto.Appointment;
                 load.ArrivalTime = dto.ArrivalTime;
                 load.CfNum = dto.CfNum;
@@ -341,12 +339,6 @@ namespace load_board_api.Services
                 throw new DoesNotExistException();
             }
 
-            //Prevent conflict
-            if (load.LastUpdated > dto.LastUpdated)
-            {
-                throw new ConflictException();
-            }
-
             //Update load
             load.Appointment = dto.Appointment;
             load.ArrivalTime = dto.ArrivalTime;
@@ -354,7 +346,6 @@ namespace load_board_api.Services
             load.Deleted = dto.Deleted;
             load.DepartureTime = dto.DepartureTime;
             load.DestinationId = dto.Destination.Id;
-            load.LastUpdated = dto.LastUpdated;
             load.OriginId = dto.Origin.Id;
             load.PuNum = dto.PuNum;
             load.Status = dto.Status;
@@ -398,7 +389,6 @@ namespace load_board_api.Services
             {
                 //Soft-delete load
                 load.Deleted = true;
-                load.LastUpdated = DateTime.UtcNow;
                 loadRepo.Update(load);
             }
         }

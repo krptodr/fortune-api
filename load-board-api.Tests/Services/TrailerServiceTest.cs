@@ -43,7 +43,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -52,7 +51,6 @@ namespace load_board_api.Tests.Services
             Trailer testTrailer = new Trailer
             {
                 Id = 111111,
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 LocationId = testLocation.Id
             };
@@ -134,7 +132,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -144,13 +141,11 @@ namespace load_board_api.Tests.Services
             {
                 new Trailer {
                     Id = 111111,
-                    LastUpdated = DateTime.UtcNow,
                     Deleted = false,
                     LocationId = testLocation.Id
                 },
                 new Trailer {
                     Id = 222222,
-                    LastUpdated = DateTime.UtcNow,
                     Deleted = false,
                     LocationId = testLocation.Id
                 }
@@ -205,7 +200,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -215,13 +209,11 @@ namespace load_board_api.Tests.Services
             {
                 new Trailer {
                     Id = 111111,
-                    LastUpdated = DateTime.UtcNow,
                     Deleted = false,
                     LocationId = testLocation.Id
                 },
                 new Trailer {
                     Id = 222222,
-                    LastUpdated = DateTime.UtcNow,
                     Deleted = true,
                     LocationId = testLocation.Id
                 }
@@ -280,7 +272,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -289,7 +280,6 @@ namespace load_board_api.Tests.Services
             Trailer testTrailer = new Trailer
             {
                 Id = 111111,
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 LocationId = testLocation.Id
             };
@@ -335,7 +325,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -344,7 +333,6 @@ namespace load_board_api.Tests.Services
             Trailer testTrailer = new Trailer
             {
                 Id = 111111,
-                LastUpdated = DateTime.UtcNow,
                 Deleted = true,
                 LocationId = testLocation.Id
             };
@@ -390,7 +378,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = true,
                 Name = "TEST"
             };
@@ -399,7 +386,6 @@ namespace load_board_api.Tests.Services
             Trailer testTrailer = new Trailer
             {
                 Id = 111111,
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 LocationId = testLocation.Id
             };
@@ -446,7 +432,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -455,7 +440,6 @@ namespace load_board_api.Tests.Services
             Trailer testTrailer = new Trailer
             {
                 Id = 111111,
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 LocationId = testLocation.Id
             };
@@ -500,7 +484,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -509,7 +492,6 @@ namespace load_board_api.Tests.Services
             Trailer testTrailer = new Trailer
             {
                 Id = 111111,
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 LocationId = testLocation.Id
             };
@@ -557,7 +539,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -566,7 +547,6 @@ namespace load_board_api.Tests.Services
             Trailer testTrailer = new Trailer
             {
                 Id = 111111,
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 LocationId = testLocation.Id
             };
@@ -613,7 +593,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -622,7 +601,6 @@ namespace load_board_api.Tests.Services
             Trailer testTrailer = new Trailer
             {
                 Id = 111111,
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 LocationId = testLocation.Id
             };
@@ -632,62 +610,6 @@ namespace load_board_api.Tests.Services
             //Mock calls
             mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
-
-            //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
-
-            //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
-
-            //Test
-            trailerService.Update(testDto);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ConflictException))]
-        public void UpdateTrailerWithConflict()
-        {
-            //Automapper
-            AutoMapperConfig.RegisterMappings();
-
-            //Mock context
-            Mock<LoadBoardDbContext> mockContext = new Mock<LoadBoardDbContext>();
-
-            //Mock repos
-            Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
-
-            //Test location
-            Location testLocation = new Location
-            {
-                Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
-                Deleted = false,
-                Name = "TEST"
-            };
-
-            //Test trailer
-            Trailer testTrailer = new Trailer
-            {
-                Id = 111111,
-                LastUpdated = DateTime.UtcNow,
-                Deleted = false,
-                LocationId = testLocation.Id
-            };
-            TrailerDto testDto = Mapper.Map<TrailerDto>(testTrailer);
-            testDto.LastUpdated = testDto.LastUpdated.AddMilliseconds(-1);
-            testDto.Location = Mapper.Map<LocationDto>(testLocation);
-
-            //Mock calls
-            mockLocationRepo.Setup(x => x.Exists(It.Is<Guid>(y => y == testLocation.Id))).Returns(true);
-            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
-            mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns(testTrailer);
 
             //Unit of work
             IUnitOfWork unitOfWork = new UnitOfWork(
@@ -723,7 +645,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -732,7 +653,6 @@ namespace load_board_api.Tests.Services
             Trailer testTrailer = new Trailer
             {
                 Id = 111111,
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 LocationId = testLocation.Id
             };
@@ -781,7 +701,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -790,7 +709,6 @@ namespace load_board_api.Tests.Services
             Trailer testTrailer = new Trailer
             {
                 Id = 111111,
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 LocationId = testLocation.Id
             };
@@ -832,7 +750,6 @@ namespace load_board_api.Tests.Services
             Location testLocation = new Location
             {
                 Id = Guid.NewGuid(),
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 Name = "TEST"
             };
@@ -841,7 +758,6 @@ namespace load_board_api.Tests.Services
             Trailer testTrailer = new Trailer
             {
                 Id = 111111,
-                LastUpdated = DateTime.UtcNow,
                 Deleted = false,
                 LocationId = testLocation.Id
             };

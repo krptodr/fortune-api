@@ -41,7 +41,6 @@ namespace load_board_api.Tests.Services
             {
                 Id = Guid.NewGuid(),
                 Deleted = false,
-                LastUpdated = DateTime.UtcNow,
                 Name = "TEST"
             };
             LocationDto testDto = Mapper.Map<LocationDto>(testLocation);
@@ -117,13 +116,11 @@ namespace load_board_api.Tests.Services
             IEnumerable<Location> testLocations = new List<Location> {
                 new Location {
                     Id = Guid.NewGuid(),
-                    LastUpdated = DateTime.UtcNow,
                     Name = "TEST",
                     Deleted = false
                 },
                 new Location {
                     Id = Guid.NewGuid(),
-                    LastUpdated = DateTime.UtcNow,
                     Name = "TEST",
                     Deleted = false
                 }
@@ -173,13 +170,11 @@ namespace load_board_api.Tests.Services
             IEnumerable<Location> testLocations = new List<Location> {
                 new Location {
                     Id = Guid.NewGuid(),
-                    LastUpdated = DateTime.UtcNow,
                     Name = "TEST",
                     Deleted = false
                 },
                 new Location {
                     Id = Guid.NewGuid(),
-                    LastUpdated = DateTime.UtcNow,
                     Name = "TEST",
                     Deleted = true
                 }
@@ -282,7 +277,6 @@ namespace load_board_api.Tests.Services
             {
                 Id = Guid.NewGuid(),
                 Deleted = true,
-                LastUpdated = DateTime.UtcNow,
                 Name = "TEST"
             };
             LocationDto testDto = Mapper.Map<LocationDto>(testLocation);
@@ -332,7 +326,6 @@ namespace load_board_api.Tests.Services
             {
                 Id = Guid.NewGuid(),
                 Deleted = false,
-                LastUpdated = DateTime.UtcNow,
                 Name = "TEST"
             };
             LocationDto testDto = Mapper.Map<LocationDto>(testLocation);
@@ -384,7 +377,6 @@ namespace load_board_api.Tests.Services
             {
                 Id = Guid.NewGuid(),
                 Deleted = false,
-                LastUpdated = DateTime.UtcNow,
                 Name = "TEST"
             };
             LocationDto testDto = Mapper.Map<LocationDto>(testLocation);
@@ -428,57 +420,12 @@ namespace load_board_api.Tests.Services
             {
                 Id = Guid.NewGuid(),
                 Deleted = false,
-                LastUpdated = DateTime.UtcNow,
                 Name = "TEST"
             };
             LocationDto testDto = Mapper.Map<LocationDto>(testLocation);
 
             //Mock call
             mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns<Location>(null);
-
-            //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
-
-            //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
-
-            //Test
-            LocationDto dto = locationService.Update(testDto);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ConflictException))]
-        public void UpdateLocationWithConflict()
-        {
-            //Automapper
-            AutoMapperConfig.RegisterMappings();
-
-            //Mock context
-            Mock<LoadBoardDbContext> mockContext = new Mock<LoadBoardDbContext>();
-
-            //Mock repos
-            Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
-
-            //Test location
-            Location testLocation = new Location
-            {
-                Id = Guid.NewGuid(),
-                Deleted = false,
-                LastUpdated = DateTime.UtcNow,
-                Name = "TEST"
-            };
-            LocationDto testDto = Mapper.Map<LocationDto>(testLocation);
-            testDto.LastUpdated = testDto.LastUpdated.AddMilliseconds(-1);
-
-            //Mock call
-            mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
 
             //Unit of work
             IUnitOfWork unitOfWork = new UnitOfWork(
@@ -518,7 +465,6 @@ namespace load_board_api.Tests.Services
             {
                 Id = Guid.NewGuid(),
                 Deleted = false,
-                LastUpdated = DateTime.UtcNow,
                 Name = "TEST"
             };
 

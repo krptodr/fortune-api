@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,8 +15,8 @@ namespace load_board_api.Models
         public Guid Id { get; set; }
         [Required]
         public LoadType Type { get; set; }
-        [Required]
-        public DateTime? LastUpdated { get; set; }
+        [Required, Timestamp, Column(TypeName = "datetime2")]
+        public byte[] RowVersion { get; set; }
         [Required]
         public bool Deleted { get; set; }
         

@@ -16,18 +16,15 @@ namespace load_board_api.Persistence
             Location[] locations = new Location[] {
                 new Location {
                     Id = Guid.NewGuid(),
-                    Name = "Test Location 1",
-                    LastUpdated = DateTime.UtcNow
+                    Name = "Test Location 1"
                 },
                 new Location {
                     Id = Guid.NewGuid(),
-                    Name = "Test Location 2",
-                    LastUpdated = DateTime.UtcNow
+                    Name = "Test Location 2"
                 },
                 new Location {
                     Id = Guid.NewGuid(),
                     Name = "Test Deleted Location",
-                    LastUpdated = DateTime.UtcNow,
                     Deleted = true
                 }
             };
@@ -37,18 +34,15 @@ namespace load_board_api.Persistence
             Trailer[] trailers = new Trailer[] {
                 new Trailer {
                     Id = 111111,
-                    LocationId = locations[0].Id,
-                    LastUpdated = DateTime.UtcNow
+                    LocationId = locations[0].Id
                 }, 
                 new Trailer {
                     Id = 222222,
-                    LocationId = locations[0].Id,
-                    LastUpdated = DateTime.UtcNow
+                    LocationId = locations[0].Id
                 }, 
                 new Trailer {
                     Id = 333333,
                     LocationId = locations[0].Id,
-                    LastUpdated = DateTime.UtcNow,
                     Deleted = true
                 }
             };
@@ -59,7 +53,6 @@ namespace load_board_api.Persistence
                 new Load {
                     Id = Guid.NewGuid(),
                     Type = LoadType.Inbound,
-                    LastUpdated = DateTime.UtcNow,
                     Status = LoadStatus.InTransit,
                     TrailerId = trailers[0].Id,
                     Appointment = null,
@@ -73,7 +66,6 @@ namespace load_board_api.Persistence
                 new Load {
                     Id = Guid.NewGuid(),
                     Type = LoadType.Outbound,
-                    LastUpdated = DateTime.UtcNow,
                     Status = LoadStatus.Ready,
                     TrailerId = trailers[1].Id,
                     Appointment = DateTime.UtcNow.AddHours(1),
@@ -87,7 +79,6 @@ namespace load_board_api.Persistence
                 new Load {
                     Id = Guid.NewGuid(),
                     Type = LoadType.Intraplant,
-                    LastUpdated = DateTime.UtcNow,
                     Status = LoadStatus.Complete,
                     TrailerId = trailers[1].Id,
                     Appointment = null,
@@ -101,7 +92,6 @@ namespace load_board_api.Persistence
                 new Load {
                     Id = Guid.NewGuid(),
                     Type = LoadType.LocalDelivery,
-                    LastUpdated = DateTime.UtcNow,
                     Status = LoadStatus.InTransit,
                     TrailerId = trailers[1].Id,
                     Appointment = DateTime.UtcNow.AddMinutes(30),

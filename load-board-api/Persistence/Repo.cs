@@ -1,4 +1,5 @@
-﻿using System;
+﻿using load_board_api.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -97,7 +98,14 @@ namespace load_board_api.Persistence
         /// <param name="entity">The entity to add</param>
         public void Insert(TEntity entity)
         {
-            this.dbSet.Add(entity);
+            try
+            {
+                this.dbSet.Add(entity);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw new ConflictException();
+            }
         }
 
         /// <summary>
@@ -106,7 +114,14 @@ namespace load_board_api.Persistence
         /// <param name="entityToUpdate">The entity to update</param>
         public void Update(TEntity entityToUpdate)
         {
-            this.context.Entry(entityToUpdate).State = EntityState.Modified;
+            try
+            {
+                this.context.Entry(entityToUpdate).State = EntityState.Modified;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw new ConflictException();
+            }
         }
 
         /// <summary>
@@ -115,11 +130,17 @@ namespace load_board_api.Persistence
         /// <param name="entityToDelete">The entity to delete</param>
         public void Delete(TEntity entityToDelete)
         {
-            if (this.context.Entry(entityToDelete).State == EntityState.Detached)
+            try {
+                if (this.context.Entry(entityToDelete).State == EntityState.Detached)
+                {
+                    this.dbSet.Attach(entityToDelete);
+                }
+                this.dbSet.Remove(entityToDelete);
+                }
+            catch (DbUpdateConcurrencyException)
             {
-                this.dbSet.Attach(entityToDelete);
+                throw new ConflictException();
             }
-            this.dbSet.Remove(entityToDelete);
         }
 
         /// <summary>
