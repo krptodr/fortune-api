@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace fortune_api.Dtos
+namespace fortune_api.LoadBoard.Dtos
 {
     public class LocationDto
     {

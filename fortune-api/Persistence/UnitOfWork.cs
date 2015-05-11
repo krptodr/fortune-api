@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using fortune_api.Models;
+using fortune_api.LoadBoard.Models;
 
 namespace fortune_api.Persistence
 {

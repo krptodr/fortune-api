@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
-using fortune_api.Models;
-using fortune_api.Enums;
+using fortune_api.LoadBoard.Models;
+using fortune_api.LoadBoard.Enums;
 
 namespace fortune_api.Persistence
 {

@@ -1,6 +1,7 @@
-﻿using fortune_api.Dtos;
+﻿using fortune_api.Controllers;
+using fortune_api.LoadBoard.Dtos;
 using fortune_api.Persistence;
-using fortune_api.Services;
+using fortune_api.LoadBoard.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace fortune_api.Controllers
+namespace fortune_api.LoadBoard.Controllers
 {
     [RoutePrefix("api/loads")]
     public class LoadController : AbstractController

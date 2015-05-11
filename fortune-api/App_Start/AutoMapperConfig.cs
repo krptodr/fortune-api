@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using fortune_api.Models;
-using fortune_api.Dtos;
+using fortune_api.LoadBoard.Models;
+using fortune_api.LoadBoard.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

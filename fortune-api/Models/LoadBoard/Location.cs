@@ -6,14 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace fortune_api.Models
+namespace fortune_api.LoadBoard.Models
 {
-    public class Trailer
+    public class Location
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
+        [Key]
+        public Guid Id { get; set; }
         [Required]
-        public Guid LocationId { get; set; }
+        public string Name { get; set; }
         [Required, DefaultValue(false)]
         public bool Deleted { get; set; }
         [Timestamp]

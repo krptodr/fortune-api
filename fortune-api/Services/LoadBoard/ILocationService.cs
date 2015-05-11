@@ -1,12 +1,12 @@
-﻿using fortune_api.Dtos;
-using fortune_api.Models;
+﻿using fortune_api.LoadBoard.Dtos;
+using fortune_api.LoadBoard.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace fortune_api.Services
+namespace fortune_api.LoadBoard.Services
 {
     public interface ILocationService
     {

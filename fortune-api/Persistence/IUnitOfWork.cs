@@ -1,4 +1,4 @@
-﻿using fortune_api.Models;
+﻿using fortune_api.LoadBoard.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

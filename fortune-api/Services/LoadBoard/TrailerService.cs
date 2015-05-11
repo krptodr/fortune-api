@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using fortune_api.Dtos;
-using fortune_api.Models;
+using fortune_api.LoadBoard.Dtos;
+using fortune_api.LoadBoard.Models;
 using fortune_api.Persistence;
 using fortune_api.Exceptions;
 using AutoMapper;
 
-namespace fortune_api.Services
+namespace fortune_api.LoadBoard.Services
 {
     public class TrailerService : ITrailerService
     {

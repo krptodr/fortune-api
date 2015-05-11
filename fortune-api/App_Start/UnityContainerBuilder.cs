@@ -1,6 +1,6 @@
-﻿using fortune_api.Models;
+﻿using fortune_api.LoadBoard.Models;
 using fortune_api.Persistence;
-using fortune_api.Services;
+using fortune_api.LoadBoard.Services;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using fortune_api.App_Start;
-using fortune_api.Dtos;
+using fortune_api.LoadBoard.Dtos;
 using fortune_api.Exceptions;
-using fortune_api.Models;
+using fortune_api.LoadBoard.Models;
 using fortune_api.Persistence;
-using fortune_api.Services;
+using fortune_api.LoadBoard.Services;
 using fortune_api.Tests.Test_Start;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

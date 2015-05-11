@@ -1,38 +1,37 @@
-﻿using fortune_api.Dtos;
+﻿using fortune_api.Controllers;
+using fortune_api.LoadBoard.Dtos;
 using fortune_api.Persistence;
-using fortune_api.Services;
+using fortune_api.LoadBoard.Services;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 
-namespace fortune_api.Controllers
+namespace fortune_api.LoadBoard.Controllers
 {
-    [RoutePrefix("api/locations")]
-    public class LocationController : AbstractController
+    [RoutePrefix("api/trailers")]
+    public class TrailerController : AbstractController
     {
-        private ILocationService locationService;
+        private ITrailerService trailerService;
 
-        public LocationController(ILocationService locationService, IUnitOfWork unitOfWork)
+        public TrailerController(ITrailerService trailerService, IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            this.locationService = locationService;
+            this.trailerService = trailerService;
         }
 
-        // GET api/locations/{id}
+        // GET api/trailers/{id}
+        [Route("{id:int}")]
         [HttpGet]
-        [Route("{id:guid}")]
-        public HttpResponseMessage Get(Guid id)
+        public HttpResponseMessage Get(int id)
         {
             HttpResponseMessage res = null;
 
             try
             {
-                LocationDto resDto = this.locationService.Get(id);
+                TrailerDto resDto = this.trailerService.Get(id);
                 res = Request.CreateResponse(HttpStatusCode.OK, resDto);
             }
             catch (Exception e)
@@ -43,20 +42,21 @@ namespace fortune_api.Controllers
             return res;
         }
 
-         
-        // GET api/locations
+        // GET api/trailers
         // 
         // Optional params:
         // includeDeleted
+        // skip
+        // num
         [HttpGet]
         [Route("")]
-        public HttpResponseMessage Get(bool includeDeleted = false)
+        public HttpResponseMessage Get(bool includeDeleted = false, int skip = -1, int num = -1)
         {
             HttpResponseMessage res = null;
 
             try
             {
-                LocationDto[] resDtos = this.locationService.Get(includeDeleted);
+                TrailerDto[] resDtos = this.trailerService.Get(includeDeleted, skip, num);
                 res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
             }
             catch (Exception e)
@@ -67,16 +67,16 @@ namespace fortune_api.Controllers
             return res;
         }
 
-        // POST api/locations
+        // POST api/trailers
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage Add([FromBody] LocationDto dto)
+        public HttpResponseMessage Add([FromBody] TrailerDto dto)
         {
             HttpResponseMessage res = null;
 
             try
             {
-                LocationDto resDtos = this.locationService.Add(dto);
+                TrailerDto resDtos = this.trailerService.Add(dto);
                 this.unitOfWork.Save();
                 res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
             }
@@ -88,16 +88,16 @@ namespace fortune_api.Controllers
             return res;
         }
 
-        // PUT api/locations
+        // PUT api/trailers
         [HttpPut]
         [Route("")]
-        public HttpResponseMessage Update([FromBody] LocationDto dto)
+        public HttpResponseMessage Update([FromBody] TrailerDto dto)
         {
             HttpResponseMessage res = null;
 
             try
             {
-                LocationDto resDtos = this.locationService.Update(dto);
+                TrailerDto resDtos = this.trailerService.Update(dto);
                 this.unitOfWork.Save();
                 res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
             }
@@ -109,16 +109,16 @@ namespace fortune_api.Controllers
             return res;
         }
 
-        // DELETE api/locations/{id}
+        // DELETE api/trailers/{id}
         [HttpDelete]
-        [Route("{id:guid}")]
-        public HttpResponseMessage Delete(Guid id)
+        [Route("{id:int}")]
+        public HttpResponseMessage Delete(int id)
         {
             HttpResponseMessage res = null;
 
             try
             {
-                this.locationService.Delete(id);
+                this.trailerService.Delete(id);
                 this.unitOfWork.Save();
                 res = Request.CreateResponse(HttpStatusCode.OK);
             }

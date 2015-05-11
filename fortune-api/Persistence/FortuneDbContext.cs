@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using fortune_api.Models;
+using fortune_api.LoadBoard.Models;
 
 namespace fortune_api.Persistence
 {
