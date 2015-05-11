@@ -20,9 +20,7 @@ namespace load_board_api.Tests.Test_Start
             LocationDto[] expected,
             LocationDto[] actual,
             bool idEqual = true,
-            bool nameEqual = true,
-            bool deletedEqual = true,
-            bool lastUpdatedEqual = true
+            bool deletedEqual = true
         )
         {
             int numExpected = expected.Length;
@@ -34,9 +32,7 @@ namespace load_board_api.Tests.Test_Start
                     expected[i],
                     actual[i],
                     idEqual: idEqual,
-                    nameEqual: nameEqual,
-                    deletedEqual: deletedEqual,
-                    lastUpdatedEqual: lastUpdatedEqual
+                    deletedEqual: deletedEqual
                 );
             }
         }
@@ -45,9 +41,7 @@ namespace load_board_api.Tests.Test_Start
             LocationDto expected,
             LocationDto actual,
             bool idEqual = true,
-            bool nameEqual = true,
-            bool deletedEqual = true,
-            bool lastUpdatedEqual = true
+            bool deletedEqual = true
         ) {
             if (idEqual)
             {
@@ -57,14 +51,7 @@ namespace load_board_api.Tests.Test_Start
             {
                 Assert.AreNotEqual(expected.Id, actual.Id);
             }
-            if (nameEqual)
-            {
-                Assert.AreEqual(expected.Name, expected.Name);
-            }
-            else
-            {
-                Assert.AreNotEqual(expected.Name, expected.Name);
-            }
+            Assert.AreEqual(expected.Name, expected.Name);
             if (deletedEqual)
             {
                 Assert.AreEqual(expected.Deleted, actual.Deleted);
@@ -73,26 +60,15 @@ namespace load_board_api.Tests.Test_Start
             {
                 Assert.AreNotEqual(expected.Deleted, actual.Deleted);
             }
-            if (lastUpdatedEqual)
-            {
-                Assert.AreEqual(expected.LastUpdated, actual.LastUpdated);
-            }
-            else
-            {
-                Assert.AreNotEqual(expected.LastUpdated, actual.LastUpdated);
-            }
         }
 
         public static void Compare(
             TrailerDto[] expected,
             TrailerDto[] actual,
             bool idEqual = true,
-            bool lastUpdatedEqual = true,
             bool deletedEqual = true,
             bool locationIdEqual = true,
-            bool locationNameEqual = true,
-            bool locationDeletedEqual = true,
-            bool locationLastUpdatedEqual = true
+            bool locationDeletedEqual = true
         )
         {
             int numExpected = expected.Length;
@@ -104,12 +80,9 @@ namespace load_board_api.Tests.Test_Start
                     expected[i],
                     actual[i],
                     idEqual:idEqual,
-                    lastUpdatedEqual:lastUpdatedEqual,
                     deletedEqual:deletedEqual,
                     locationIdEqual:locationIdEqual,
-                    locationNameEqual:locationNameEqual,
-                    locationDeletedEqual:locationDeletedEqual,
-                    locationLastUpdatedEqual: locationLastUpdatedEqual
+                    locationDeletedEqual:locationDeletedEqual
                 );
             }
         }
@@ -118,20 +91,15 @@ namespace load_board_api.Tests.Test_Start
             TrailerDto expected,
             TrailerDto actual,
             bool idEqual = true,
-            bool lastUpdatedEqual = true,
             bool deletedEqual = true,
             bool locationIdEqual = true,
-            bool locationNameEqual = true,
-            bool locationDeletedEqual = true,
-            bool locationLastUpdatedEqual = true
+            bool locationDeletedEqual = true
         ) {
             Compare(
                 expected.Location,
                 actual.Location,
                 idEqual: locationIdEqual,
-                nameEqual: locationNameEqual,
-                deletedEqual: locationDeletedEqual,
-                lastUpdatedEqual: locationLastUpdatedEqual
+                deletedEqual: locationDeletedEqual
             );
             if (idEqual)
             {
@@ -141,14 +109,6 @@ namespace load_board_api.Tests.Test_Start
             {
                 Assert.AreNotEqual(expected.Id, actual.Id);
             }
-            if (lastUpdatedEqual)
-            {
-                Assert.AreEqual(expected.LastUpdated, actual.LastUpdated);
-            }
-            else
-            {
-                Assert.AreNotEqual(expected.LastUpdated, actual.LastUpdated);
-            }
             if (deletedEqual)
             {
                 Assert.AreEqual(expected.Deleted, actual.Deleted);
@@ -156,6 +116,63 @@ namespace load_board_api.Tests.Test_Start
             else
             {
                 Assert.AreNotEqual(expected.Deleted, actual.Deleted);
+            }
+        }
+
+        public static void Compare(
+            LoadDto expected,
+            LoadDto actual,
+            bool idEqual = true,
+            bool deletedEqual = true,
+            bool trailerIdEqual = true,
+            bool trailerDeleted = true,
+            bool trailerLocationIdEqual = true,
+            bool trailerLocationDeletedEqual = true,
+            bool originIdEqual = true,
+            bool originDeletedEqual = true,
+            bool destinationIdEqual = true,
+            bool destinationDeletedEqual = true
+        )
+        {
+            Compare(
+                expected.Trailer,
+                actual.Trailer,
+                idEqual: trailerIdEqual,
+                deletedEqual: trailerDeleted,
+                locationIdEqual: trailerLocationIdEqual,
+                locationDeletedEqual: trailerLocationIdEqual
+            );
+            Compare(
+                expected.Origin,
+                actual.Origin,
+                idEqual: originIdEqual,
+                deletedEqual: originDeletedEqual
+            );
+            Compare(
+                expected.Destination,
+                actual.Destination,
+                idEqual: destinationIdEqual,
+                deletedEqual: destinationDeletedEqual
+            );
+            Assert.AreEqual(expected.CfNum, actual.CfNum);
+            Assert.AreEqual(expected.PuNum, actual.PuNum);
+            Assert.AreEqual(expected.Status, actual.Status);
+            Assert.AreEqual(expected.Type, actual.Type);
+            if (deletedEqual)
+            {
+                Assert.AreEqual(expected.Deleted, actual.Deleted);
+            }
+            else
+            {
+                Assert.AreNotEqual(expected.Deleted, actual.Deleted);
+            }
+            if (idEqual)
+            {
+                Assert.AreEqual(expected.Id, actual.Id);
+            }
+            else
+            {
+                Assert.AreNotEqual(expected.Id, actual.Id);
             }
         }
     }

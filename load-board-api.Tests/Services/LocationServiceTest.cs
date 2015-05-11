@@ -260,7 +260,7 @@ namespace load_board_api.Tests.Services
 
             //Test
             LocationDto dto = locationService.Add(testDto);
-            TestUtil.Compare(testDto, dto, idEqual: false, lastUpdatedEqual: false);
+            TestUtil.Compare(testDto, dto, idEqual: false);
         }
 
         [TestMethod]
@@ -309,7 +309,7 @@ namespace load_board_api.Tests.Services
 
             //Test
             LocationDto dto = locationService.Add(testDto);
-            TestUtil.Compare(testDto, dto, lastUpdatedEqual: false, deletedEqual: false);
+            TestUtil.Compare(testDto, dto, deletedEqual: false);
         }
 
         [TestMethod]
@@ -405,7 +405,7 @@ namespace load_board_api.Tests.Services
 
             //Test
             LocationDto dto = locationService.Add(testDto);
-            TestUtil.Compare(testDto, dto, idEqual: false, lastUpdatedEqual: false);
+            TestUtil.Compare(testDto, dto, idEqual: false);
         }
 
         [TestMethod]

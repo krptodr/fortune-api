@@ -314,7 +314,7 @@ namespace load_board_api.Tests.Services
 
             //Test
             TrailerDto dto = trailerService.Add(testDto);
-            TestUtil.Compare(testDto, dto, lastUpdatedEqual: false);
+            TestUtil.Compare(testDto, dto);
         }
 
         [TestMethod]
@@ -369,7 +369,7 @@ namespace load_board_api.Tests.Services
 
             //Test
             TrailerDto dto = trailerService.Add(testDto);
-            TestUtil.Compare(testDto, dto, deletedEqual: false, lastUpdatedEqual: false);
+            TestUtil.Compare(testDto, dto, deletedEqual: false);
         }
 
         [TestMethod]
@@ -424,7 +424,7 @@ namespace load_board_api.Tests.Services
 
             //Test
             TrailerDto dto = trailerService.Add(testDto);
-            TestUtil.Compare(testDto, dto, lastUpdatedEqual: false);
+            TestUtil.Compare(testDto, dto);
         }
 
         [TestMethod]
@@ -591,7 +591,7 @@ namespace load_board_api.Tests.Services
 
             //Test
             TrailerDto dto = trailerService.Update(testDto);
-            TestUtil.Compare(testDto, dto, lastUpdatedEqual: false);
+            TestUtil.Compare(testDto, dto);
         }
 
         [TestMethod]
@@ -756,7 +756,7 @@ namespace load_board_api.Tests.Services
 
             //Test
             TrailerDto dto = trailerService.Update(testDto);
-            TestUtil.Compare(testDto, dto, lastUpdatedEqual: false);
+            TestUtil.Compare(testDto, dto);
         }
 
         #endregion

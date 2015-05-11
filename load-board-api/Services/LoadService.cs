@@ -29,8 +29,6 @@ namespace load_board_api.Services
 
             //Get load from repo
             Load load = loadRepo.Get(id);
-
-            //Ensure load exists
             if (load == null)
             {
                 throw new DoesNotExistException();
@@ -38,7 +36,7 @@ namespace load_board_api.Services
 
             //Get trailer from repo
             Trailer trailer = null;
-            if (load.TrailerId != null)
+            if (load.TrailerId > 0)
             {
                 trailer = trailerRepo.Get(load.TrailerId);
             }
@@ -53,7 +51,7 @@ namespace load_board_api.Services
             Location origin = null;
             if (load.OriginId != null)
             {
-                origin = locationRepo.Get(origin.Id);
+                origin = locationRepo.Get(load.OriginId);
             }
 
             //Get destination from repo

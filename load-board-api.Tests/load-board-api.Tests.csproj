@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\LoadServiceTest.cs" />
     <Compile Include="Services\LocationServiceTest.cs" />
     <Compile Include="Services\TrailerServiceTest.cs" />
     <Compile Include="Test_Start\TestUtil.cs" />
