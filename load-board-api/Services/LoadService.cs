@@ -258,9 +258,6 @@ namespace load_board_api.Services
                 throw new AlreadyExistsException();
             }
 
-            //Save changes
-            this.unitOfWork.Save();
-
             //Create dto
             dto = Mapper.Map<LoadDto>(load);
             if (trailer != null)
@@ -365,9 +362,6 @@ namespace load_board_api.Services
             load.Type = dto.Type;
             loadRepo.Update(load);
 
-            //Save changes
-            this.unitOfWork.Save();
-
             //Create dto
             dto = Mapper.Map<LoadDto>(load);
             if (trailer != null)
@@ -406,9 +400,6 @@ namespace load_board_api.Services
                 load.Deleted = true;
                 load.LastUpdated = DateTime.UtcNow;
                 loadRepo.Update(load);
-
-                //Save changes
-                this.unitOfWork.Save();
             }
         }
     }

@@ -132,9 +132,6 @@ namespace load_board_api.Services
                 throw new AlreadyExistsException();
             }
 
-            //Save changes
-            this.unitOfWork.Save();
-
             //Create dto
             dto = Mapper.Map<TrailerDto>(trailer);
             dto.Location = Mapper.Map<LocationDto>(location);
@@ -179,9 +176,6 @@ namespace load_board_api.Services
             trailer.LastUpdated = DateTime.UtcNow;
             trailerRepo.Update(trailer);
 
-            //Save changes
-            this.unitOfWork.Save();
-
             //Create dto
             dto = Mapper.Map<TrailerDto>(trailer);
             dto.Location = Mapper.Map<LocationDto>(location);
@@ -205,9 +199,6 @@ namespace load_board_api.Services
                 trailer.Deleted = true;
                 trailer.LastUpdated = DateTime.UtcNow;
                 trailerRepo.Update(trailer);
-
-                //Save changes
-                this.unitOfWork.Save();
             }
         }
     }

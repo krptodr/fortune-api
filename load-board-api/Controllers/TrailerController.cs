@@ -1,4 +1,5 @@
 ﻿using load_board_api.Dtos;
+using load_board_api.Persistence;
 using load_board_api.Services;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,9 @@ namespace load_board_api.Controllers
     {
         private ITrailerService trailerService;
 
-        public TrailerController(ITrailerService trailerService)
+        public TrailerController(ITrailerService trailerService, IUnitOfWork unitOfWork)
         {
+            this.unitOfWork = unitOfWork;
             this.trailerService = trailerService;
         }
 
@@ -74,6 +76,7 @@ namespace load_board_api.Controllers
             try
             {
                 TrailerDto resDtos = this.trailerService.Add(dto);
+                this.unitOfWork.Save();
                 res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
             }
             catch (Exception e)
@@ -94,6 +97,7 @@ namespace load_board_api.Controllers
             try
             {
                 TrailerDto resDtos = this.trailerService.Update(dto);
+                this.unitOfWork.Save();
                 res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
             }
             catch (Exception e)
@@ -114,6 +118,7 @@ namespace load_board_api.Controllers
             try
             {
                 this.trailerService.Delete(id);
+                this.unitOfWork.Save();
                 res = Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception e)

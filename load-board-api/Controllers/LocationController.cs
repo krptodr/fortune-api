@@ -1,4 +1,5 @@
 ﻿using load_board_api.Dtos;
+using load_board_api.Persistence;
 using load_board_api.Services;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,9 @@ namespace load_board_api.Controllers
     {
         private ILocationService locationService;
 
-        public LocationController(ILocationService locationService)
+        public LocationController(ILocationService locationService, IUnitOfWork unitOfWork)
         {
+            this.unitOfWork = unitOfWork;
             this.locationService = locationService;
         }
 
@@ -75,6 +77,7 @@ namespace load_board_api.Controllers
             try
             {
                 LocationDto resDtos = this.locationService.Add(dto);
+                this.unitOfWork.Save();
                 res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
             }
             catch (Exception e)
@@ -95,6 +98,7 @@ namespace load_board_api.Controllers
             try
             {
                 LocationDto resDtos = this.locationService.Update(dto);
+                this.unitOfWork.Save();
                 res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
             }
             catch (Exception e)
@@ -115,6 +119,7 @@ namespace load_board_api.Controllers
             try
             {
                 this.locationService.Delete(id);
+                this.unitOfWork.Save();
                 res = Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception e)

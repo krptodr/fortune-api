@@ -1,4 +1,5 @@
 ﻿using load_board_api.Exceptions;
+using load_board_api.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,7 +14,9 @@ namespace load_board_api.Controllers
 {
     public abstract class AbstractController : ApiController
     {
-        private static readonly string ENV = ConfigurationManager.AppSettings["ENV"]; 
+        private static readonly string ENV = ConfigurationManager.AppSettings["ENV"];
+
+        protected IUnitOfWork unitOfWork;
 
         public HttpStatusCode GetHttpStatusCode(Exception e)
         {

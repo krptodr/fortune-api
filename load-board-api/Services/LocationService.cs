@@ -102,9 +102,6 @@ namespace load_board_api.Services
                 }
             }
 
-            //Save changes
-            this.unitOfWork.Save();
-
             //Create dto
             dto = Mapper.Map<LocationDto>(location);
 
@@ -138,9 +135,6 @@ namespace load_board_api.Services
             location.Name = dto.Name;
             locationRepo.Update(location);
 
-            //Save changes
-            this.unitOfWork.Save();
-
             //Create dto
             dto = Mapper.Map<LocationDto>(location);
 
@@ -163,9 +157,6 @@ namespace load_board_api.Services
                 location.Deleted = true;
                 location.LastUpdated = DateTime.UtcNow;
                 locationRepo.Update(location);
-
-                //Save changes
-                this.unitOfWork.Save();
             }
         }
     }
