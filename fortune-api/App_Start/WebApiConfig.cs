@@ -8,6 +8,9 @@ using Microsoft.Practices.Unity;
 using fortune_api.App_Start;
 using System.Web.Http.Cors;
 using System.Configuration;
+using fortune_api.Controllers.Filters;
+using System.Web.Http.Dependencies;
+using System.Web.Http.Filters;
 
 namespace fortune_api
 {
@@ -17,7 +20,8 @@ namespace fortune_api
         {
             // Unity
             UnityContainer container = UnityContainerBuilder.Build();
-            config.DependencyResolver = new UnityResolver(container);
+            IDependencyResolver resolver = new UnityResolver(container);
+            config.DependencyResolver = resolver;
 
             // CORS
             EnableCorsAttribute corsAttr = new EnableCorsAttribute(ConfigurationManager.AppSettings["CORS_ALLOWED_ORIGINS"], "*", "*");
@@ -25,6 +29,11 @@ namespace fortune_api
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            // Global filters
+            config.Filters.Add((ApiExceptionFilterAttribute)resolver.GetService(typeof(ApiExceptionFilterAttribute)));
+            config.Filters.Add((AuthenticationFilter)resolver.GetService(typeof(AuthenticationFilter)));
+            config.Filters.Add((AuthenticationRequiredAttribute)resolver.GetService(typeof(AuthenticationRequiredAttribute)));
         }
     }
 }

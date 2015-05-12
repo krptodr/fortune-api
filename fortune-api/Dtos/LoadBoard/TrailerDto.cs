@@ -10,6 +10,6 @@ namespace fortune_api.LoadBoard.Dtos
         public int Id { get; set; }
         public LocationDto Location { get; set; }
         public bool Deleted { get; set; }
-        public DateTime LastUpdated { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }

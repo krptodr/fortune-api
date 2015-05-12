@@ -165,6 +165,7 @@ namespace fortune_api.LoadBoard.Services
             //Update trailer
             trailer.LocationId = dto.Location.Id;
             trailer.Deleted = dto.Deleted;
+            trailer.RowVersion = dto.RowVersion;
             trailerRepo.Update(trailer);
 
             //Create dto

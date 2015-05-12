@@ -10,6 +10,6 @@ namespace fortune_api.LoadBoard.Dtos
         public Guid Id;
         public string Name;
         public bool Deleted;
-        public DateTime LastUpdated;
+        public byte[] RowVersion { get; set; }
     }
 }

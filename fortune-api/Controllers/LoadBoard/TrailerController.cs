@@ -8,13 +8,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using fortune_api.Services.Security;
 
 namespace fortune_api.LoadBoard.Controllers
 {
     [RoutePrefix("api/trailers")]
-    public class TrailerController : AbstractController
+    public class TrailerController : ApiController
     {
         private ITrailerService trailerService;
+        private IUnitOfWork unitOfWork;
 
         public TrailerController(ITrailerService trailerService, IUnitOfWork unitOfWork)
         {
@@ -27,19 +29,8 @@ namespace fortune_api.LoadBoard.Controllers
         [HttpGet]
         public HttpResponseMessage Get(int id)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                TrailerDto resDto = this.trailerService.Get(id);
-                res = Request.CreateResponse(HttpStatusCode.OK, resDto);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            TrailerDto resDto = this.trailerService.Get(id);
+            return Request.CreateResponse(HttpStatusCode.OK, resDto);
         }
 
         // GET api/trailers
@@ -52,19 +43,8 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("")]
         public HttpResponseMessage Get(bool includeDeleted = false, int skip = -1, int num = -1)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                TrailerDto[] resDtos = this.trailerService.Get(includeDeleted, skip, num);
-                res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            TrailerDto[] resDtos = this.trailerService.Get(includeDeleted, skip, num);
+            return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
         // POST api/trailers
@@ -72,20 +52,9 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("")]
         public HttpResponseMessage Add([FromBody] TrailerDto dto)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                TrailerDto resDtos = this.trailerService.Add(dto);
-                this.unitOfWork.Save();
-                res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            TrailerDto resDtos = this.trailerService.Add(dto);
+            this.unitOfWork.Save();
+            return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
         // PUT api/trailers
@@ -93,20 +62,9 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("")]
         public HttpResponseMessage Update([FromBody] TrailerDto dto)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                TrailerDto resDtos = this.trailerService.Update(dto);
-                this.unitOfWork.Save();
-                res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            TrailerDto resDtos = this.trailerService.Update(dto);
+            this.unitOfWork.Save();
+            return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
         // DELETE api/trailers/{id}
@@ -114,20 +72,9 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("{id:int}")]
         public HttpResponseMessage Delete(int id)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                this.trailerService.Delete(id);
-                this.unitOfWork.Save();
-                res = Request.CreateResponse(HttpStatusCode.OK);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            this.trailerService.Delete(id);
+            this.unitOfWork.Save();
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

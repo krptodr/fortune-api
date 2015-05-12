@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using fortune_api.LoadBoard.Models;
 using fortune_api.LoadBoard.Enums;
+using fortune_api.Models.Auth;
 
 namespace fortune_api.Persistence
 {
@@ -12,6 +13,57 @@ namespace fortune_api.Persistence
     {
         protected override void Seed(FortuneDbContext context)
         {
+            //Permissions
+            Permission[] permissions = new Permission[] {
+                new Permission {
+                    Id = Guid.NewGuid(),
+                    Name = "EditAdmins"
+                },
+                new Permission {
+                    Id = Guid.NewGuid(),
+                    Name = "EditPermissions"
+                },
+                new Permission {
+                    Id = Guid.NewGuid(),
+                    Name = "EditTrailers"
+                },
+                new Permission {
+                    Id = Guid.NewGuid(),
+                    Name = "EditLocations"
+                },
+                new Permission {
+                    Id = Guid.NewGuid(),
+                    Name = "EditLoads"
+                },
+                new Permission {
+                    Id = Guid.NewGuid(),
+                    Name = "ViewLoads"
+                }
+            };
+            context.Permissions.AddRange(permissions);
+
+            //User Profiles
+            UserProfile[] userProfiles = new UserProfile[] {
+                new UserProfile {
+                    Id = Guid.NewGuid(),
+                    FirstName = "Ryan",
+                    LastName = "Helmoski",
+                    Permissions = permissions.ToList()
+                }
+            };
+            context.UserProfiles.AddRange(userProfiles);
+
+            //Email Auths
+            EmailAuth[] emailAuths = new EmailAuth[] {
+                new EmailAuth {
+                    Id = Guid.NewGuid(),
+                    UserId = userProfiles[0].Id,
+                    Email = "ryan@fortunetransportation.com",
+                    HashedPassword = "$2a$12$qesWZCh6U.aCdxiamaFdKeCXo8MS3cQx4dbxbx19hZHuYDs0uSNUy"
+                }
+            };
+            context.EmailAuths.AddRange(emailAuths);
+
             //Locations
             Location[] locations = new Location[] {
                 new Location {

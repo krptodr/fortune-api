@@ -351,6 +351,7 @@ namespace fortune_api.LoadBoard.Services
             load.Status = dto.Status;
             load.TrailerId = dto.Trailer.Id;
             load.Type = dto.Type;
+            load.RowVersion = dto.RowVersion;
             loadRepo.Update(load);
 
             //Create dto

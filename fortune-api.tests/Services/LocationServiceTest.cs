@@ -33,8 +33,6 @@ namespace fortune_api.Tests.Services
 
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -49,15 +47,11 @@ namespace fortune_api.Tests.Services
             mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
 
             //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
+            ILocationService locationService = new LocationService(mockUnitOfWork.Object);
 
             //Test
             LocationDto dto = locationService.Get(testDto.Id);
@@ -80,15 +74,11 @@ namespace fortune_api.Tests.Services
             mockLocationRepo.Setup(x => x.Get(It.IsAny<Guid>())).Returns<Location>(null);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
 
             //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
+            ILocationService locationService = new LocationService(mockUnitOfWork.Object);
 
             //Test
             LocationDto dto = locationService.Get(Guid.NewGuid());
@@ -109,8 +99,6 @@ namespace fortune_api.Tests.Services
 
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test locations
             IEnumerable<Location> testLocations = new List<Location> {
@@ -137,15 +125,11 @@ namespace fortune_api.Tests.Services
             )).Returns(testLocations);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
 
             //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
+            ILocationService locationService = new LocationService(mockUnitOfWork.Object);
 
             //Test
             LocationDto[] dtos = locationService.Get(false);
@@ -163,8 +147,6 @@ namespace fortune_api.Tests.Services
 
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test locations
             IEnumerable<Location> testLocations = new List<Location> {
@@ -191,15 +173,11 @@ namespace fortune_api.Tests.Services
             )).Returns(testLocations);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
 
             //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
+            ILocationService locationService = new LocationService(mockUnitOfWork.Object);
 
             //Test
             LocationDto[] dtos = locationService.Get(true);
@@ -221,15 +199,12 @@ namespace fortune_api.Tests.Services
 
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             LocationDto testDto = new LocationDto
             {
                 Id = Guid.Empty,
                 Deleted = false,
-                LastUpdated = DateTime.UtcNow,
                 Name = "TEST"
             };
 
@@ -243,15 +218,11 @@ namespace fortune_api.Tests.Services
             )).Returns(new List<Location>());
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
 
             //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
+            ILocationService locationService = new LocationService(mockUnitOfWork.Object);
 
             //Test
             LocationDto dto = locationService.Add(testDto);
@@ -269,8 +240,6 @@ namespace fortune_api.Tests.Services
 
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -291,15 +260,11 @@ namespace fortune_api.Tests.Services
             )).Returns(new List<Location> { testLocation });
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
 
             //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
+            ILocationService locationService = new LocationService(mockUnitOfWork.Object);
 
             //Test
             LocationDto dto = locationService.Add(testDto);
@@ -318,8 +283,6 @@ namespace fortune_api.Tests.Services
 
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -340,15 +303,11 @@ namespace fortune_api.Tests.Services
             )).Returns(new List<Location> { testLocation });
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
 
             //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
+            ILocationService locationService = new LocationService(mockUnitOfWork.Object);
 
             //Test
             LocationDto dto = locationService.Add(testDto);
@@ -369,8 +328,6 @@ namespace fortune_api.Tests.Services
 
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -385,15 +342,11 @@ namespace fortune_api.Tests.Services
             mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
 
             //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
+            ILocationService locationService = new LocationService(mockUnitOfWork.Object);
 
             //Test
             LocationDto dto = locationService.Add(testDto);
@@ -412,8 +365,6 @@ namespace fortune_api.Tests.Services
 
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -428,15 +379,11 @@ namespace fortune_api.Tests.Services
             mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns<Location>(null);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
 
             //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
+            ILocationService locationService = new LocationService(mockUnitOfWork.Object);
 
             //Test
             LocationDto dto = locationService.Update(testDto);
@@ -457,8 +404,6 @@ namespace fortune_api.Tests.Services
 
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -472,15 +417,11 @@ namespace fortune_api.Tests.Services
             mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
 
             //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
+            ILocationService locationService = new LocationService(mockUnitOfWork.Object);
 
             //Test
             locationService.Delete(testLocation.Id);
@@ -497,8 +438,6 @@ namespace fortune_api.Tests.Services
 
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
-            Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test id
             Guid testId = Guid.NewGuid();
@@ -507,15 +446,11 @@ namespace fortune_api.Tests.Services
             mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testId))).Returns<Location>(null);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
 
             //Location Service
-            ILocationService locationService = new LocationService(unitOfWork);
+            ILocationService locationService = new LocationService(mockUnitOfWork.Object);
 
             //Test
             locationService.Delete(testId);

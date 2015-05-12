@@ -37,7 +37,6 @@ namespace fortune_api.Tests.Services
             //Mock repos
             Mock<IRepo<Location>> mockLocationRepo = new Mock<IRepo<Location>>();
             Mock<IRepo<Trailer>> mockTrailerRepo = new Mock<IRepo<Trailer>>();
-            Mock<IRepo<Load>> mockLoadRepo = new Mock<IRepo<Load>>();
 
             //Test location
             Location testLocation = new Location
@@ -62,15 +61,12 @@ namespace fortune_api.Tests.Services
             mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             TrailerDto dto = trailerService.Get(testTrailer.Id);
@@ -96,15 +92,12 @@ namespace fortune_api.Tests.Services
             mockTrailerRepo.Setup(x => x.Get(testId)).Returns<Trailer>(null);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             TrailerDto dto = trailerService.Get(testId);
@@ -167,15 +160,12 @@ namespace fortune_api.Tests.Services
             mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             TrailerDto[] dtos = trailerService.Get(false);
@@ -235,15 +225,12 @@ namespace fortune_api.Tests.Services
             mockLocationRepo.Setup(x => x.Get(It.Is<Guid>(y => y == testLocation.Id))).Returns(testLocation);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             TrailerDto[] dtos = trailerService.Get(true);
@@ -292,15 +279,12 @@ namespace fortune_api.Tests.Services
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             TrailerDto dto = trailerService.Add(testDto);
@@ -345,15 +329,12 @@ namespace fortune_api.Tests.Services
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns(testTrailer);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             TrailerDto dto = trailerService.Add(testDto);
@@ -398,15 +379,12 @@ namespace fortune_api.Tests.Services
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             TrailerDto dto = trailerService.Add(testDto);
@@ -451,15 +429,12 @@ namespace fortune_api.Tests.Services
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns(testTrailer);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             trailerService.Add(testDto);
@@ -503,15 +478,12 @@ namespace fortune_api.Tests.Services
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             trailerService.Add(testDto);
@@ -559,15 +531,12 @@ namespace fortune_api.Tests.Services
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns(testTrailer);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             TrailerDto dto = trailerService.Update(testDto);
@@ -612,15 +581,12 @@ namespace fortune_api.Tests.Services
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             trailerService.Update(testDto);
@@ -664,15 +630,12 @@ namespace fortune_api.Tests.Services
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             TrailerDto dto = trailerService.Update(testDto);
@@ -718,15 +681,12 @@ namespace fortune_api.Tests.Services
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns(testTrailer);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             trailerService.Delete(testTrailer.Id);
@@ -767,15 +727,12 @@ namespace fortune_api.Tests.Services
             mockTrailerRepo.Setup(x => x.Get(testTrailer.Id)).Returns<Trailer>(null);
 
             //Unit of work
-            IUnitOfWork unitOfWork = new UnitOfWork(
-                mockContext.Object,
-                mockLocationRepo.Object,
-                mockTrailerRepo.Object,
-                mockLoadRepo.Object
-            );
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            mockUnitOfWork.SetupGet(x => x.LocationRepo).Returns(mockLocationRepo.Object);
+            mockUnitOfWork.SetupGet(x => x.TrailerRepo).Returns(mockTrailerRepo.Object);
 
             //Trailer service
-            ITrailerService trailerService = new TrailerService(unitOfWork);
+            ITrailerService trailerService = new TrailerService(mockUnitOfWork.Object);
 
             //Test
             trailerService.Delete(testTrailer.Id);

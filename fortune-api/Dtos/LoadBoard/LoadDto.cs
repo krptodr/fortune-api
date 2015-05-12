@@ -21,5 +21,6 @@ namespace fortune_api.LoadBoard.Dtos
         public int? CfNum { get; set; }
         public int? PuNum { get; set; }
         public bool Deleted { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }

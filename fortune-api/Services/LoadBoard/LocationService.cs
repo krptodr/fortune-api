@@ -124,6 +124,7 @@ namespace fortune_api.LoadBoard.Services
             //Update location
             location.Deleted = dto.Deleted;
             location.Name = dto.Name;
+            location.RowVersion = dto.RowVersion;
             locationRepo.Update(location);
 
             //Create dto

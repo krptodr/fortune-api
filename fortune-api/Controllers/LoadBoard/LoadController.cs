@@ -8,13 +8,16 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using fortune_api.Services.Security;
+using fortune_api.Controllers.Filters;
 
 namespace fortune_api.LoadBoard.Controllers
 {
     [RoutePrefix("api/loads")]
-    public class LoadController : AbstractController
+    public class LoadController : ApiController
     {
         private ILoadService loadService;
+        private IUnitOfWork unitOfWork;
 
         public LoadController(ILoadService loadService, IUnitOfWork unitOfWork)
         {
@@ -27,19 +30,8 @@ namespace fortune_api.LoadBoard.Controllers
         [HttpGet]
         public HttpResponseMessage Get(Guid id)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                LoadDto resDto = this.loadService.Get(id);
-                res = Request.CreateResponse(HttpStatusCode.OK, resDto);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            LoadDto resDto = this.loadService.Get(id);
+            return Request.CreateResponse(HttpStatusCode.OK, resDto);
         }
 
         // GET api/loads
@@ -52,19 +44,8 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("")]
         public HttpResponseMessage Get(bool includeDeleted = false, int skip = -1, int num = -1)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                LoadDto[] resDtos = this.loadService.Get(includeDeleted, skip, num);
-                res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            LoadDto[] resDtos = this.loadService.Get(includeDeleted, skip, num);
+            return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
         // POST api/loads
@@ -72,20 +53,9 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("")]
         public HttpResponseMessage Add([FromBody] LoadDto dto)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                LoadDto resDtos = this.loadService.Add(dto);
-                this.unitOfWork.Save();
-                res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            LoadDto resDtos = this.loadService.Add(dto);
+            this.unitOfWork.Save();
+            return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
         // PUT api/loads
@@ -93,20 +63,9 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("")]
         public HttpResponseMessage Update([FromBody] LoadDto dto)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                LoadDto resDtos = this.loadService.Update(dto);
-                this.unitOfWork.Save();
-                res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            LoadDto resDtos = this.loadService.Update(dto);
+            this.unitOfWork.Save();
+            return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
         // DELETE api/loads/{id}
@@ -114,20 +73,9 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("{id:guid}")]
         public HttpResponseMessage Delete(Guid id)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                this.loadService.Delete(id);
-                this.unitOfWork.Save();
-                res = Request.CreateResponse(HttpStatusCode.OK);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            this.loadService.Delete(id);
+            this.unitOfWork.Save();
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

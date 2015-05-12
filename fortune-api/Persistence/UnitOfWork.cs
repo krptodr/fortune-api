@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using fortune_api.LoadBoard.Models;
+using fortune_api.Models.Auth;
 
 namespace fortune_api.Persistence
 {
@@ -11,6 +12,9 @@ namespace fortune_api.Persistence
         private FortuneDbContext context;
         private bool disposed;
 
+        public IRepo<UserProfile> UserProfileRepo { get; set; }
+        public IRepo<Permission> PermissionRepo { get; set; }
+        public IRepo<EmailAuth> EmailAuthRepo { get; set; }
         public IRepo<Location> LocationRepo { get; set; }
         public IRepo<Trailer> TrailerRepo { get; set; }
         public IRepo<Load> LoadRepo { get; set; }
@@ -19,7 +23,10 @@ namespace fortune_api.Persistence
             FortuneDbContext context,
             IRepo<Location> locationRepo,
             IRepo<Trailer> trailerRepo,
-            IRepo<Load> loadRepo
+            IRepo<Load> loadRepo,
+            IRepo<EmailAuth> emailAuthRepo,
+            IRepo<UserProfile> userProfileRepo,
+            IRepo<Permission> permissionRepo
         )
         {
             this.disposed = false;
@@ -27,6 +34,9 @@ namespace fortune_api.Persistence
             this.LocationRepo = locationRepo;
             this.TrailerRepo = trailerRepo;
             this.LoadRepo = loadRepo;
+            this.EmailAuthRepo = emailAuthRepo;
+            this.UserProfileRepo = userProfileRepo;
+            this.PermissionRepo = permissionRepo;
         }
 
         public void Save()

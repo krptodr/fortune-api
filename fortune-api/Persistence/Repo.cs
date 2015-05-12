@@ -54,7 +54,7 @@ namespace fortune_api.Persistence
 
             if (filter != null)
             {
-                query = query = query.Where(filter);
+                query = query.Where(filter);
             }
 
             foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))

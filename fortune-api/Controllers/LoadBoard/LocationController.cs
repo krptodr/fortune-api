@@ -10,13 +10,15 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using fortune_api.Services.Security;
 
 namespace fortune_api.LoadBoard.Controllers
 {
     [RoutePrefix("api/locations")]
-    public class LocationController : AbstractController
+    public class LocationController : ApiController
     {
         private ILocationService locationService;
+        private IUnitOfWork unitOfWork;
 
         public LocationController(ILocationService locationService, IUnitOfWork unitOfWork)
         {
@@ -29,19 +31,8 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("{id:guid}")]
         public HttpResponseMessage Get(Guid id)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                LocationDto resDto = this.locationService.Get(id);
-                res = Request.CreateResponse(HttpStatusCode.OK, resDto);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            LocationDto resDto = this.locationService.Get(id);
+            return Request.CreateResponse(HttpStatusCode.OK, resDto);
         }
 
          
@@ -53,19 +44,8 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("")]
         public HttpResponseMessage Get(bool includeDeleted = false)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                LocationDto[] resDtos = this.locationService.Get(includeDeleted);
-                res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            LocationDto[] resDtos = this.locationService.Get(includeDeleted);
+            return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
         // POST api/locations
@@ -73,20 +53,9 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("")]
         public HttpResponseMessage Add([FromBody] LocationDto dto)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                LocationDto resDtos = this.locationService.Add(dto);
-                this.unitOfWork.Save();
-                res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            LocationDto resDtos = this.locationService.Add(dto);
+            this.unitOfWork.Save();
+            return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
         // PUT api/locations
@@ -94,20 +63,9 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("")]
         public HttpResponseMessage Update([FromBody] LocationDto dto)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                LocationDto resDtos = this.locationService.Update(dto);
-                this.unitOfWork.Save();
-                res = Request.CreateResponse(HttpStatusCode.OK, resDtos);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            LocationDto resDtos = this.locationService.Update(dto);
+            this.unitOfWork.Save();
+            return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
         // DELETE api/locations/{id}
@@ -115,20 +73,9 @@ namespace fortune_api.LoadBoard.Controllers
         [Route("{id:guid}")]
         public HttpResponseMessage Delete(Guid id)
         {
-            HttpResponseMessage res = null;
-
-            try
-            {
-                this.locationService.Delete(id);
-                this.unitOfWork.Save();
-                res = Request.CreateResponse(HttpStatusCode.OK);
-            }
-            catch (Exception e)
-            {
-                res = GetErrorResponse(e);
-            }
-
-            return res;
+            this.locationService.Delete(id);
+            this.unitOfWork.Save();
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }
