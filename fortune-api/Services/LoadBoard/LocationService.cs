@@ -5,6 +5,7 @@ using fortune_api.Models.LoadBoard;
 using fortune_api.Persistence;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,8 @@ namespace fortune_api.Services.LoadBoard
 
         public LocationService(IUnitOfWork unitOfWork)
         {
+            Contract.Assert(unitOfWork != null);
+
             this.unitOfWork = unitOfWork;
         }
 

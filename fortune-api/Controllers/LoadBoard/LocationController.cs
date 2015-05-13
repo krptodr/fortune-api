@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Http;
 using fortune_api.Services.Security;
 using fortune_api.Controllers.Filters;
+using System.Diagnostics.Contracts;
 
 namespace fortune_api.Controllers.LoadBoard
 {
@@ -23,6 +24,8 @@ namespace fortune_api.Controllers.LoadBoard
 
         public LocationController(ILocationService locationService, IUnitOfWork unitOfWork)
         {
+            Contract.Assert(locationService != null);
+            Contract.Assert(unitOfWork != null);
             this.unitOfWork = unitOfWork;
             this.locationService = locationService;
         }

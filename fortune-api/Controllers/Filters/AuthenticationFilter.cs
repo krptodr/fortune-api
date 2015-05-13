@@ -14,6 +14,7 @@ using System.Web.Http.Results;
 using System.Security.Principal;
 using fortune_api.Dtos.Auth;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 
 namespace fortune_api.Controllers.Filters
 {
@@ -24,6 +25,8 @@ namespace fortune_api.Controllers.Filters
 
         public AuthenticationFilter(IJwtService jwtService, IUserService userService)
         {
+            Contract.Assert(jwtService != null);
+            Contract.Assert(userService != null);
             this.jwtService = jwtService;
             this.userService = userService;
         }

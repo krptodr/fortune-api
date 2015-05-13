@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using fortune_api.Models.LoadBoard;
 using fortune_api.Models.Auth;
+using System.Diagnostics.Contracts;
 
 namespace fortune_api.Persistence
 {
@@ -29,6 +30,14 @@ namespace fortune_api.Persistence
             IRepo<Permission> permissionRepo
         )
         {
+            Contract.Assert(context != null);
+            Contract.Assert(locationRepo != null);
+            Contract.Assert(trailerRepo != null);
+            Contract.Assert(loadRepo != null);
+            Contract.Assert(emailAuthRepo != null);
+            Contract.Assert(userProfileRepo != null);
+            Contract.Assert(permissionRepo != null);
+
             this.disposed = false;
             this.context = context;
             this.LocationRepo = locationRepo;

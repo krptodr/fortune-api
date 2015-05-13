@@ -4,6 +4,7 @@ using fortune_api.Models.Auth;
 using fortune_api.Persistence;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
@@ -15,6 +16,8 @@ namespace fortune_api.Services.Auth
 
         public PermissionService(IUnitOfWork unitOfWork)
         {
+            Contract.Assert(unitOfWork != null);
+
             this.unitOfWork = unitOfWork;
         }
 

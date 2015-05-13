@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Web.Http;
 using fortune_api.Services.Security;
 using fortune_api.Controllers.Filters;
+using System.Diagnostics.Contracts;
 
 namespace fortune_api.Controllers.LoadBoard
 {
@@ -21,6 +22,8 @@ namespace fortune_api.Controllers.LoadBoard
 
         public LoadController(ILoadService loadService, IUnitOfWork unitOfWork)
         {
+            Contract.Assert(loadService != null);
+            Contract.Assert(unitOfWork != null);
             this.unitOfWork = unitOfWork;
             this.loadService = loadService;
         }

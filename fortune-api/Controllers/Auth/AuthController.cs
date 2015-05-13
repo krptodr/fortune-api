@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Diagnostics.Contracts;
 
 namespace fortune_api.Controllers.Auth
 {
@@ -21,6 +22,9 @@ namespace fortune_api.Controllers.Auth
 
         public AuthController(IAuthService authService, IUserService userService, IUnitOfWork unitOfWork)
         {
+            Contract.Assert(authService != null);
+            Contract.Assert(userService != null);
+            Contract.Assert(unitOfWork != null);
             this.authService = authService;
             this.userService = userService;
             this.unitOfWork = unitOfWork;

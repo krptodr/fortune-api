@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
@@ -23,6 +24,10 @@ namespace fortune_api.Services.Auth
 
         public AuthService(IHasher hasher, IUnitOfWork unitOfWork, IJwtService jwtService)
         {
+            Contract.Assert(hasher != null);
+            Contract.Assert(unitOfWork != null);
+            Contract.Assert(jwtService != null);
+
             this.hasher = hasher;
             this.unitOfWork = unitOfWork;
             this.jwtService = jwtService;

@@ -5,6 +5,7 @@ using fortune_api.Services.Auth;
 using fortune_api.Services.Security;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -20,6 +21,8 @@ namespace fortune_api.Controllers.Auth
 
         public UserController(IUnitOfWork unitOfWork, IUserService userService)
         {
+            Contract.Assert(unitOfWork != null);
+            Contract.Assert(userService != null);
             this.unitOfWork = unitOfWork;
             this.userService = userService;
         }

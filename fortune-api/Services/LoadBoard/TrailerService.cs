@@ -7,6 +7,7 @@ using fortune_api.Models.LoadBoard;
 using fortune_api.Persistence;
 using fortune_api.Exceptions;
 using AutoMapper;
+using System.Diagnostics.Contracts;
 
 namespace fortune_api.Services.LoadBoard
 {
@@ -16,6 +17,8 @@ namespace fortune_api.Services.LoadBoard
 
         public TrailerService(IUnitOfWork unitOfWork)
         {
+            Contract.Assert(unitOfWork != null);
+
             this.unitOfWork = unitOfWork;
         }
 

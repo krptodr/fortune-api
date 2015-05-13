@@ -8,6 +8,7 @@ using fortune_api.Persistence;
 using fortune_api.Exceptions;
 using AutoMapper;
 using fortune_api.Enums.LoadBoard;
+using System.Diagnostics.Contracts;
 
 namespace fortune_api.Services.LoadBoard
 {
@@ -17,6 +18,8 @@ namespace fortune_api.Services.LoadBoard
 
         public LoadService(IUnitOfWork unitOfWork)
         {
+            Contract.Assert(unitOfWork != null);
+
             this.unitOfWork = unitOfWork;
         }
 
