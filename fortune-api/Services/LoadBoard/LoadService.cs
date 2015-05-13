@@ -233,7 +233,10 @@ namespace fortune_api.Services.LoadBoard
             if (load == null)
             {
                 load = Mapper.Map<Load>(dto);
-                load.Id = Guid.NewGuid();
+                do
+                {
+                    load.Id = Guid.NewGuid();
+                } while (loadRepo.Exists(load.Id));
                 loadRepo.Insert(load);
             }
             else if (load.Deleted)

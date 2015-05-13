@@ -55,7 +55,11 @@ namespace fortune_api.Services.Auth
 
             //Convert to permission
             Permission permission = Mapper.Map<Permission>(dto);
-            permission.Id = Guid.NewGuid();
+            do
+            {
+                permission.Id = Guid.NewGuid();
+            } while (permissionRepo.Exists(permission.Id));
+            
 
             //Add permission
             permissionRepo.Insert(permission);

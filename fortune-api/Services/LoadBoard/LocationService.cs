@@ -82,7 +82,10 @@ namespace fortune_api.Services.LoadBoard
             if (locations.Count() == 0)
             {
                 location = Mapper.Map<Location>(dto);
-                location.Id = Guid.NewGuid();
+                do
+                {
+                    location.Id = Guid.NewGuid();
+                } while (locationRepo.Exists(location.Id));
                 locationRepo.Insert(location);
             }
             else

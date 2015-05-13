@@ -97,11 +97,14 @@ namespace fortune_api.Services.Auth
             //Register email
             EmailAuth auth = new EmailAuth
             {
-                Id = Guid.NewGuid(),
                 UserId = userId,
                 Email = email,
                 HashedPassword = password
             };
+            do
+            {
+                auth.Id = Guid.NewGuid();
+            } while (emailAuthRepo.Exists(auth.Id));
             emailAuthRepo.Insert(auth);
 
             //Create UserDto

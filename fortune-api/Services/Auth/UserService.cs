@@ -58,7 +58,11 @@ namespace fortune_api.Services.Auth
             UserProfile user = Mapper.Map<UserProfile>(userDto);
 
             //Generate Id
-            user.Id = Guid.NewGuid();
+            do
+            {
+                user.Id = Guid.NewGuid();
+            } while (userProfileRepo.Exists(user.Id));
+            
 
             //Add user
             userProfileRepo.Insert(user);
