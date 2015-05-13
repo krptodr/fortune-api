@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using fortune_api.LoadBoard.Dtos;
+using fortune_api.Dtos.LoadBoard;
 using fortune_api.Exceptions;
-using fortune_api.LoadBoard.Models;
+using fortune_api.Models.LoadBoard;
 using fortune_api.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace fortune_api.LoadBoard.Services
+namespace fortune_api.Services.LoadBoard
 {
     public class LocationService : ILocationService
     {

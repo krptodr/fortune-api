@@ -1,7 +1,7 @@
 ﻿using fortune_api.Controllers;
-using fortune_api.LoadBoard.Dtos;
+using fortune_api.Dtos.LoadBoard;
 using fortune_api.Persistence;
-using fortune_api.LoadBoard.Services;
+using fortune_api.Services.LoadBoard;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,7 +12,7 @@ using System.Web;
 using System.Web.Http;
 using fortune_api.Services.Security;
 
-namespace fortune_api.LoadBoard.Controllers
+namespace fortune_api.Controllers.LoadBoard
 {
     [RoutePrefix("api/locations")]
     public class LocationController : ApiController

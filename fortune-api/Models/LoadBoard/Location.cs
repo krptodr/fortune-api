@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace fortune_api.LoadBoard.Models
+namespace fortune_api.Models.LoadBoard
 {
     public class Location
     {

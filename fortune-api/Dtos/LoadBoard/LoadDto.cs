@@ -1,10 +1,10 @@
-﻿using fortune_api.LoadBoard.Enums;
+﻿using fortune_api.Enums.LoadBoard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace fortune_api.LoadBoard.Dtos
+namespace fortune_api.Dtos.LoadBoard
 {
     public class LoadDto
     {

@@ -1,4 +1,4 @@
-﻿using fortune_api.LoadBoard.Enums;
+﻿using fortune_api.Enums.LoadBoard;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace fortune_api.LoadBoard.Models
+namespace fortune_api.Models.LoadBoard
 {
     public class Load
     {

@@ -1,6 +1,6 @@
 ﻿using fortune_api.App_Start;
-using fortune_api.LoadBoard.Dtos;
-using fortune_api.LoadBoard.Models;
+using fortune_api.Dtos.LoadBoard;
+using fortune_api.Models.LoadBoard;
 using fortune_api.Persistence;
 using Moq;
 using System;

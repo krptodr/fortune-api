@@ -1,4 +1,4 @@
-﻿using fortune_api.LoadBoard.Models;
+﻿using fortune_api.Models.LoadBoard;
 using fortune_api.Models.Auth;
 using System;
 using System.Collections.Generic;

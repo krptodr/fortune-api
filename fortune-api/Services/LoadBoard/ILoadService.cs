@@ -1,11 +1,11 @@
-﻿using fortune_api.LoadBoard.Dtos;
+﻿using fortune_api.Dtos.LoadBoard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace fortune_api.LoadBoard.Services
+namespace fortune_api.Services.LoadBoard
 {
     public interface ILoadService
     {
