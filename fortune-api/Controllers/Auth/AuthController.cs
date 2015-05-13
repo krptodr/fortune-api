@@ -40,6 +40,7 @@ namespace fortune_api.Controllers.Auth
         // POST api/auth/email/register
         [Route("api/auth/email/register")]
         [HttpPost]
+        [Permissions(Roles="EditUsers")]
         public HttpResponseMessage RegisterEmail([FromBody] RegisterEmailReq req)
         {
             LoginRes dto = null;

@@ -45,6 +45,7 @@ namespace fortune_api.Controllers.Auth
         // POST api/users
         [Route("api/users")]
         [HttpPost]
+        [Permissions(Roles="EditUsers")]
         public HttpResponseMessage UpdateUser([FromBody] UserDto dto)
         {
             dto = this.userService.Update(dto);
@@ -55,6 +56,7 @@ namespace fortune_api.Controllers.Auth
         // DELETE api/users/{userId}
         [Route("api/users/{userId:guid}")]
         [HttpDelete]
+        [Permissions(Roles="EditUsers")]
         public HttpResponseMessage DeleteUser(Guid userId)
         {
             this.userService.Delete(userId);

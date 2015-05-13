@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using fortune_api.Services.Security;
+using fortune_api.Controllers.Filters;
 
 namespace fortune_api.Controllers.LoadBoard
 {
@@ -48,9 +49,10 @@ namespace fortune_api.Controllers.LoadBoard
             return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
-        // POST api/locations
-        [HttpPost]
+        // PUT api/locations
+        [HttpPut]
         [Route("")]
+        [Permissions(Roles="EditLocations")]
         public HttpResponseMessage Add([FromBody] LocationDto dto)
         {
             LocationDto resDtos = this.locationService.Add(dto);
@@ -58,9 +60,10 @@ namespace fortune_api.Controllers.LoadBoard
             return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
-        // PUT api/locations
-        [HttpPut]
+        // POST api/locations
+        [HttpPost]
         [Route("")]
+        [Permissions(Roles = "EditLocations")]
         public HttpResponseMessage Update([FromBody] LocationDto dto)
         {
             LocationDto resDtos = this.locationService.Update(dto);
@@ -71,6 +74,7 @@ namespace fortune_api.Controllers.LoadBoard
         // DELETE api/locations/{id}
         [HttpDelete]
         [Route("{id:guid}")]
+        [Permissions(Roles = "EditLocations")]
         public HttpResponseMessage Delete(Guid id)
         {
             this.locationService.Delete(id);

@@ -17,7 +17,7 @@ namespace fortune_api.Persistence
             Permission[] permissions = new Permission[] {
                 new Permission {
                     Id = Guid.NewGuid(),
-                    Name = "EditAdmins"
+                    Name = "EditUsers"
                 },
                 new Permission {
                     Id = Guid.NewGuid(),

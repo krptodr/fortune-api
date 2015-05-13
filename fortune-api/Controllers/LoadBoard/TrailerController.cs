@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using fortune_api.Services.Security;
+using fortune_api.Controllers.Filters;
 
 namespace fortune_api.Controllers.LoadBoard
 {
@@ -47,9 +48,10 @@ namespace fortune_api.Controllers.LoadBoard
             return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
-        // POST api/trailers
-        [HttpPost]
+        // PUT api/trailers
+        [HttpPut]
         [Route("")]
+        [Permissions(Roles="EditTrailers")]
         public HttpResponseMessage Add([FromBody] TrailerDto dto)
         {
             TrailerDto resDtos = this.trailerService.Add(dto);
@@ -57,9 +59,10 @@ namespace fortune_api.Controllers.LoadBoard
             return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
-        // PUT api/trailers
-        [HttpPut]
+        // POST api/trailers
+        [HttpPost]
         [Route("")]
+        [Permissions(Roles = "EditTrailers")]
         public HttpResponseMessage Update([FromBody] TrailerDto dto)
         {
             TrailerDto resDtos = this.trailerService.Update(dto);
@@ -70,6 +73,7 @@ namespace fortune_api.Controllers.LoadBoard
         // DELETE api/trailers/{id}
         [HttpDelete]
         [Route("{id:int}")]
+        [Permissions(Roles = "EditTrailers")]
         public HttpResponseMessage Delete(int id)
         {
             this.trailerService.Delete(id);

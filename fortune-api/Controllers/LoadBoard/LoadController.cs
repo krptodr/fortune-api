@@ -28,6 +28,7 @@ namespace fortune_api.Controllers.LoadBoard
         // GET api/loads/{id}
         [Route("{id:guid}")]
         [HttpGet]
+        [Permissions(Roles="ViewLoads")]
         public HttpResponseMessage Get(Guid id)
         {
             LoadDto resDto = this.loadService.Get(id);
@@ -42,15 +43,17 @@ namespace fortune_api.Controllers.LoadBoard
         // num
         [HttpGet]
         [Route("")]
+        [Permissions(Roles="ViewLoads")]
         public HttpResponseMessage Get(bool includeDeleted = false, int skip = -1, int num = -1)
         {
             LoadDto[] resDtos = this.loadService.Get(includeDeleted, skip, num);
             return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
-        // POST api/loads
-        [HttpPost]
+        // PUT api/loads
+        [HttpPut]
         [Route("")]
+        [Permissions(Roles="EditLoads")]
         public HttpResponseMessage Add([FromBody] LoadDto dto)
         {
             LoadDto resDtos = this.loadService.Add(dto);
@@ -58,9 +61,10 @@ namespace fortune_api.Controllers.LoadBoard
             return Request.CreateResponse(HttpStatusCode.OK, resDtos);
         }
 
-        // PUT api/loads
-        [HttpPut]
+        // POST api/loads
+        [HttpPost]
         [Route("")]
+        [Permissions(Roles="EditLoads")]
         public HttpResponseMessage Update([FromBody] LoadDto dto)
         {
             LoadDto resDtos = this.loadService.Update(dto);
@@ -71,6 +75,7 @@ namespace fortune_api.Controllers.LoadBoard
         // DELETE api/loads/{id}
         [HttpDelete]
         [Route("{id:guid}")]
+        [Permissions(Roles="EditLoads")]
         public HttpResponseMessage Delete(Guid id)
         {
             this.loadService.Delete(id);

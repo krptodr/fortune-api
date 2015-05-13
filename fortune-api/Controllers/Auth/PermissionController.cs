@@ -1,4 +1,5 @@
-﻿using fortune_api.Dtos.Auth;
+﻿using fortune_api.Controllers.Filters;
+using fortune_api.Dtos.Auth;
 using fortune_api.Persistence;
 using fortune_api.Services.Auth;
 using System;
@@ -42,6 +43,7 @@ namespace fortune_api.Controllers.Auth
         // PUT api/permissions
         [Route("api/permissions")]
         [HttpPut]
+        [Permissions(Roles="EditPermissions")]
         public HttpResponseMessage Add([FromBody] PermissionDto dto)
         {
             dto = this.permissionService.Add(dto);
@@ -52,6 +54,7 @@ namespace fortune_api.Controllers.Auth
         // DELETE api/permissions/{permissionId}
         [Route("api/permissions/{permissionId:guid}")]
         [HttpDelete]
+        [Permissions(Roles = "EditPermissions")]
         public HttpResponseMessage Delete(Guid permissionId)
         {
             this.permissionService.Delete(permissionId);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Principal;
 using System.Threading;
@@ -29,12 +30,19 @@ namespace fortune_api.Controllers.Filters
             return;
         }
 
+        protected override void HandleUnauthorizedRequest(HttpActionContext context)
+        {
+            HttpRequestMessage req = context.Request;
+            HttpResponseMessage res = req.CreateErrorResponse(HttpStatusCode.Unauthorized, "You must be logged in to access this resource");
+            context.Response = res;
+        }
+
         private static bool SkipAuthorization(HttpActionContext actionContext)
         {
             Contract.Assert(actionContext != null);
 
-            return actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any()
-                   || actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any();
+            return actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any() ||
+                   actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any();
         }
     }
 }

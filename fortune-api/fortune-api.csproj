@@ -125,6 +125,7 @@
     <Compile Include="Controllers\Filters\AuthenticationFailureResult.cs" />
     <Compile Include="Controllers\Filters\AuthenticationFilter.cs" />
     <Compile Include="Controllers\Filters\AuthenticationRequiredAttribute.cs" />
+    <Compile Include="Controllers\Filters\PermissionsAttribute.cs" />
     <Compile Include="Controllers\LoadBoard\LoadController.cs" />
     <Compile Include="Controllers\LoadBoard\LocationController.cs" />
     <Compile Include="Controllers\LoadBoard\TrailerController.cs" />
