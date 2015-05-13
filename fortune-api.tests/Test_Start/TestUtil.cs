@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using fortune_api.Models.Auth;
+using fortune_api.Dtos.Auth;
 
 namespace fortune_api.Tests.Test_Start
 {
@@ -174,6 +176,96 @@ namespace fortune_api.Tests.Test_Start
             {
                 Assert.AreNotEqual(expected.Id, actual.Id);
             }
+        }
+
+        public static void Compare(
+            IEnumerable<PermissionDto> expected,
+            IEnumerable<PermissionDto> actual,
+            bool idsEqual
+        )
+        {
+            Assert.AreEqual(expected.Count(), actual.Count());
+            int count = expected.Count();
+            for (int i = 0; i < count; i++)
+            {
+                Compare(
+                    expected.ElementAt(i),
+                    actual.ElementAt(i),
+                    idsEqual
+                );
+            }
+        }
+
+        public static void Compare(
+            PermissionDto expected,
+            PermissionDto actual,
+            bool idsEqual
+        )
+        {
+            if (idsEqual)
+            {
+                Assert.AreEqual(expected.Id, actual.Id);
+            }
+            else
+            {
+                Assert.AreNotEqual(expected.Id, actual.Id);
+            }
+            Assert.AreEqual(expected.Name, actual.Name);
+        }
+
+        public static void Compare(
+            IEnumerable<UserDto> expected,
+            IEnumerable<UserDto> actual,
+            bool idsEqual,
+            bool permissionIdsEqual
+        )
+        {
+            Assert.AreEqual(expected.Count(), actual.Count());
+            int count = expected.Count();
+            for (int i = 0; i < count; i++)
+            {
+                Compare(
+                    expected.ElementAt(i),
+                    actual.ElementAt(i),
+                    idsEqual,
+                    permissionIdsEqual
+                );
+            }
+        }
+
+        public static void Compare(
+            UserDto expected,
+            UserDto actual,
+            bool idsEqual,
+            bool permissionIdsEqual
+        )
+        {
+            if (idsEqual)
+            {
+                Assert.AreEqual(expected.Id, actual.Id);
+            }
+            else
+            {
+                Assert.AreNotEqual(expected.Id, actual.Id);
+            }
+            Assert.AreEqual(expected.FirstName, actual.FirstName);
+            Assert.AreEqual(expected.LastName, actual.LastName);
+            Compare(
+                expected.Permissions,
+                actual.Permissions,
+                idsEqual
+            );
+        }
+
+        public static void Compare(
+            LoginRes expected,
+            LoginRes actual,
+            bool userIdsEqual = true,
+            bool permissionIdsEqual = true
+        )
+        {
+            Assert.AreEqual(expected.JWT, actual.JWT);
+            Compare(expected.User, actual.User, userIdsEqual, permissionIdsEqual);
         }
     }
 }

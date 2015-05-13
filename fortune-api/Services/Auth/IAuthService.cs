@@ -15,7 +15,7 @@ namespace fortune_api.Services.Auth
         /// <param name="email">Email</param>
         /// <param name="password">Password</param>
         /// <returns>Login Response</returns>
-        /// <exception cref="UnauthorizedException">Invalid email and/or password</exception>
+        /// <exception cref="InvalidCredentialsException">Invalid email and/or password</exception>
         LoginRes LogInViaEmail(string email, string password);
 
         /// <summary>

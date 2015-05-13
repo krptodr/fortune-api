@@ -43,14 +43,14 @@ namespace fortune_api.Services.Auth
             IEnumerable<EmailAuth> auths = emailAuthRepo.Get(x => x.Email == email);
             if (auths.Count() == 0)
             {
-                throw new UnauthorizedException();
+                throw new InvalidCredentialsException();
             }
             EmailAuth auth = auths.ElementAt(0);
 
             //Check password
             if (!this.hasher.CompareWithHash(password, auth.HashedPassword))
             {
-                throw new UnauthorizedException();
+                throw new InvalidCredentialsException();
             }
 
             //Get user

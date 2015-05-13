@@ -127,9 +127,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\LoadServiceTest.cs" />
-    <Compile Include="Services\LocationServiceTest.cs" />
-    <Compile Include="Services\TrailerServiceTest.cs" />
+    <Compile Include="Services\Auth\AuthServiceTest.cs" />
+    <Compile Include="Services\LoadBoard\LoadServiceTest.cs" />
+    <Compile Include="Services\LoadBoard\LocationServiceTest.cs" />
+    <Compile Include="Services\LoadBoard\TrailerServiceTest.cs" />
     <Compile Include="Test_Start\TestUtil.cs" />
   </ItemGroup>
   <ItemGroup>
