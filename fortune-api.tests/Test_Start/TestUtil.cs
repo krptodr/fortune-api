@@ -181,7 +181,7 @@ namespace fortune_api.Tests.Test_Start
         public static void Compare(
             IEnumerable<PermissionDto> expected,
             IEnumerable<PermissionDto> actual,
-            bool idsEqual
+            bool idsEqual = true
         )
         {
             Assert.AreEqual(expected.Count(), actual.Count());
@@ -199,7 +199,7 @@ namespace fortune_api.Tests.Test_Start
         public static void Compare(
             PermissionDto expected,
             PermissionDto actual,
-            bool idsEqual
+            bool idsEqual = true
         )
         {
             if (idsEqual)
@@ -216,8 +216,8 @@ namespace fortune_api.Tests.Test_Start
         public static void Compare(
             IEnumerable<UserDto> expected,
             IEnumerable<UserDto> actual,
-            bool idsEqual,
-            bool permissionIdsEqual
+            bool idsEqual = true,
+            bool permissionIdsEqual = true
         )
         {
             Assert.AreEqual(expected.Count(), actual.Count());
@@ -236,8 +236,8 @@ namespace fortune_api.Tests.Test_Start
         public static void Compare(
             UserDto expected,
             UserDto actual,
-            bool idsEqual,
-            bool permissionIdsEqual
+            bool idsEqual = true,
+            bool permissionIdsEqual = true
         )
         {
             if (idsEqual)

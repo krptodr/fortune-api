@@ -103,7 +103,11 @@ namespace fortune_api.Services.Auth
 
             //Soft delete user
             UserProfile user = userProfileRepo.Get(id);
-            user.Deleted = true;
+            if (user != null)
+            {
+                user.Deleted = true;
+            }
+            
         }
     }
 }
