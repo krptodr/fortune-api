@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using fortune_api.Dtos.Auth;
+using fortune_api.Exceptions;
 using fortune_api.Models.Auth;
 using fortune_api.Persistence;
 using System;
@@ -43,6 +44,10 @@ namespace fortune_api.Services.Auth
 
             //Get permission
             Permission permission = permissionRepo.Get(id);
+            if (permission == null)
+            {
+                throw new DoesNotExistException();
+            }
 
             //Convert to dto
             PermissionDto dto = Mapper.Map<PermissionDto>(permission);

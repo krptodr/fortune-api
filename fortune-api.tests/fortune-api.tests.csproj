@@ -128,6 +128,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Auth\AuthServiceTest.cs" />
+    <Compile Include="Services\Auth\PermissionServiceTest.cs" />
     <Compile Include="Services\Auth\UserServiceTest.cs" />
     <Compile Include="Services\LoadBoard\LoadServiceTest.cs" />
     <Compile Include="Services\LoadBoard\LocationServiceTest.cs" />
